@@ -5,12 +5,12 @@ import { TestListComponent } from './test-list/test-list.component';
 
 const routes: Routes = [
   {
-    path: 'login',
-    component: LoginComponent
+    path: '',
+    component: TestListComponent
   },
   {
-    path: 'main',
-    component: TestListComponent
+    path: 'login',
+    component: LoginComponent
   }
 ];
 
