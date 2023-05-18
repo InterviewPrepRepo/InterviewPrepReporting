@@ -1,3 +1,0 @@
-# InterviewPrepReporting
-
-This is a proof of concept application to demo the capabilities of integrating spaCy and Whisper with imocha video interview questions for automation.
