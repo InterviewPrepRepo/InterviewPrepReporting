@@ -1,5 +1,5 @@
-# InterviewPrepQuestions
-
+# Interview Prep Reporting Demo
+This is a proof of concept application to demo the capabilities of integrating spaCy and Whisper with imocha video interview question responses.
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.1.
 
 ## Development server
