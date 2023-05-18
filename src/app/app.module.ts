@@ -9,6 +9,7 @@ import { TestListComponent } from './test-list/test-list.component';
 import { TestReportListComponent } from './test-report-list/test-report-list.component';
 import { TestReportDetailComponent } from './test-report-detail/test-report-detail.component';
 import { TestInviteComponent } from './test-invite/test-invite.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { TestInviteComponent } from './test-invite/test-invite.component';
     TestListComponent,
     TestReportListComponent,
     TestReportDetailComponent,
-    TestInviteComponent
+    TestInviteComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

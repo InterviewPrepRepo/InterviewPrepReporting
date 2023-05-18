@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { TestListComponent } from './test-list/test-list.component';
+import { TestReportListComponent } from './test-report-list/test-report-list.component';
+import { TestReportDetailComponent } from './test-report-detail/test-report-detail.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -11,6 +14,18 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'reports/:testId',
+    component: TestReportListComponent
+  },
+  {
+    path: 'reports/:testId/attempt/:attemptId',
+    component: TestReportDetailComponent
+  },
+  {
+    path: '**',
+    component: NotFoundComponent
   }
 ];
 
