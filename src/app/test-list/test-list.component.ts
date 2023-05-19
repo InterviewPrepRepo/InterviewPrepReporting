@@ -24,11 +24,8 @@ export class TestListComponent implements OnInit {
 
   getTests() {
     const url = 'https://apiv3.imocha.io/v3/tests';
-    const headers = new HttpHeaders()
-      .set('x-api-key', 'FEsStirljsXozgHSxDUFZpdLFDspdv');
     
-
-    this.http.get<any[]>(url, { headers }).subscribe(
+    this.http.get<any[]>(url).subscribe(
       (response) => {
         this.tests = response;
       },
