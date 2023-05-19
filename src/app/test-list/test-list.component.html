@@ -1,1 +1,22 @@
 <p>test-list works!</p>
+
+<div>
+    <h2>Test List</h2>
+  
+    <label for="itemsPerPage">Items per page:</label>
+    <select id="itemsPerPage" [(ngModel)]="itemsPerPage" (change)="getTests()">
+      <option *ngFor="let option of itemsPerPageOptions" [value]="option">{{ option }}</option>
+    </select>
+  
+    <ul>
+      <li *ngFor="let test of tests">
+        {{ test.name }}
+      </li>
+    </ul>
+  
+    <div>
+      <button [disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)">Previous</button>
+      <button (click)="onPageChange(currentPage + 1)">Next</button>
+    </div>
+  </div>
+  
