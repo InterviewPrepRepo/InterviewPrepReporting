@@ -24,6 +24,11 @@ const routes: Routes = [
     component: TestReportDetailComponent
   },
   {
+    path: '',
+    redirectTo: 'tests',
+    pathMatch: 'full'
+  },
+  {
     path: '**',
     component: NotFoundComponent
   }
