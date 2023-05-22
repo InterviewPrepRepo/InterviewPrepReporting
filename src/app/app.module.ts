@@ -10,6 +10,9 @@ import { TestReportListComponent } from './test-report-list/test-report-list.com
 import { TestReportDetailComponent } from './test-report-detail/test-report-detail.component';
 import { TestInviteComponent } from './test-invite/test-invite.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule} from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -24,7 +27,9 @@ import { NotFoundComponent } from './not-found/not-found.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
