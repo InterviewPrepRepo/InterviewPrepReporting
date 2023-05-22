@@ -15,6 +15,7 @@ export class TestListComponent implements OnInit {
   itemsPerPage: number = 5;
   currentPage: number = 1;
   baseURL : string;
+
   constructor(private http: HttpClient) {
     this.tests = [];
     this.baseURL = '';
@@ -27,7 +28,7 @@ export class TestListComponent implements OnInit {
   getTests() {
     const url = environment.APIBaseURL
     
-    this.http.get<any>(url + 'imocha/tests').subscribe(
+    this.http.get<any>(url + `imocha/tests?pageNo=${this.currentPage}&pageSize=${this.itemsPerPage}`).subscribe(
       (response) => {
         this.tests = response.tests;
       },
