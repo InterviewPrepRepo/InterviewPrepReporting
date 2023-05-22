@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -13,9 +14,10 @@ export class TestListComponent implements OnInit {
   itemsPerPageOptions: number[] = [5, 10, 20];
   itemsPerPage: number = 5;
   currentPage: number = 1;
-
+  baseURL : string;
   constructor(private http: HttpClient) {
     this.tests = [];
+    this.baseURL = '';
   }
 
   ngOnInit() {
@@ -23,11 +25,11 @@ export class TestListComponent implements OnInit {
   }
 
   getTests() {
-    const url = 'https://apiv3.imocha.io/v3/tests';
+    const url = environment.APIBaseURL
     
-    this.http.get<any[]>(url).subscribe(
+    this.http.get<any>(url + 'imocha/tests').subscribe(
       (response) => {
-        this.tests = response;
+        this.tests = response.tests;
       },
       (error) => {
         console.log('Error occurred while fetching tests:', error);

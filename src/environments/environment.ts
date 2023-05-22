@@ -1,4 +1,3 @@
 export const environment = {
-    iMochaURL: 'https://apiv3.imocha.io',
-    iMochaKey: 'FEsStirljsXozgHSxDUFZpdLFDspdv'
+    APIBaseURL: 'https://iprbe.azurewebsites.net/',
 }
