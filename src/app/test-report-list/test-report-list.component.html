@@ -1,1 +1,17 @@
-<p>test-report-list works!</p>
+<h1>{{test?.testName}}</h1>
+<table>
+    <thead>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Score</th>
+        <th>Actions</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let attempt of testAttempts">
+            <td>{{attempt.name}}</td>
+            <td>{{attempt.email}}</td>
+            <td>Not Impl</td>
+            <td><button [routerLink]="'report/' + attempt.testInvitationId">Detail</button></td>
+        </tr>
+    </tbody>
+</table>

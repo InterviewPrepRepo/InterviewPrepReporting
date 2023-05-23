@@ -1,1 +1,5 @@
-<p>test-report-detail works!</p>
+<div *ngFor="let q of questions; let i = index">
+    <h3 (click)="switchVideo(i)">Q{{i + 1}}. {{q.question}}</h3>
+</div>
+
+<video [src]="videoUrl" controls type="video/webm"></video>
