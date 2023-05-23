@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { ImochaService } from '../services/imocha-service/imocha.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import TestInvitation from '../models/testInvitation';
 
 @Component({
   selector: 'app-test-report-list',
@@ -9,12 +10,41 @@ import { environment } from 'src/environments/environment';
 })
 export class TestReportListComponent implements OnInit{
   test: any;
-  constructor(private http: HttpClient) {
-
+  testId : number = 0;
+  testAttempts : TestInvitation[] = [];
+  constructor(public imocha : ImochaService, private activeRoute : ActivatedRoute, private router : Router) {
   }
   ngOnInit(): void {
-    this.http.get(environment.APIBaseURL + 'imocha/tests/1244116').subscribe((res) => {
-      this.test = res;
+    this.activeRoute.params.subscribe((params) => {
+      this.testId = params['testId'];
+
+      this.imocha.getTestDetailByTestId(this.testId).subscribe((res) => {
+        this.test = res;
+      })
+
+      if(Object.keys(this.imocha.organizedTestAttempts).length === 0) {
+        this.testAttempts = this.imocha.organizedTestAttempts[this.testId];
+
+        const today = new Date();
+        const aMonthAgo = new Date(today);
+        aMonthAgo.setMonth(today.getMonth() - 1);
+  
+        this.imocha.getTestAttempts(aMonthAgo, today).subscribe({
+          next: (res) => {
+            this.imocha.organizedTestAttempts = this.imocha.processAttempts(res);
+            this.testAttempts = this.imocha.organizedTestAttempts[this.testId];
+        console.log(this.testAttempts)
+
+          },
+          error: (err) => {
+            console.error(err);
+          }
+        });
+      }
+      else {
+        this.testAttempts = this.imocha.organizedTestAttempts[this.testId];
+      }
     })
+    
   }
 }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { ImochaService } from '../services/imocha-service/imocha.service';
+import VideoTest from '../models/videoTest';
+import TestInvitation from '../models/testInvitation';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -10,31 +11,55 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./test-list.component.css']
 })
 export class TestListComponent implements OnInit {
-  tests: any[];
+  tests: VideoTest[];
+  allAttempts: TestInvitation[] = [];
+
   itemsPerPageOptions: number[] = [5, 10, 20];
   itemsPerPage: number = 5;
   currentPage: number = 1;
-  baseURL : string;
-  constructor(private http: HttpClient) {
+
+  constructor(public imocha: ImochaService, private router : Router) {
     this.tests = [];
-    this.baseURL = '';
   }
 
   ngOnInit() {
     this.getTests();
+    this.getAllTestAttemtps();
   }
 
-  getTests() {
-    const url = environment.APIBaseURL
-    
-    this.http.get<any>(url + 'imocha/tests').subscribe(
-      (response) => {
-        this.tests = response.tests;
+  getTests() : void {
+    this.imocha.getTests(this.currentPage, this.itemsPerPage).subscribe(
+      {
+        next: (response) => {
+          this.tests = response.tests;
+        },
+        error: (err) => {
+          console.error('Error occured while fetching tests', err);
+        }
+    });
+  }
+
+  // Actually just getting all test attempts from the past 30 days
+  getAllTestAttemtps() : void {
+    const today = new Date();
+    const aMonthAgo = new Date(today);
+    aMonthAgo.setMonth(today.getMonth() - 1);
+
+    this.imocha.getTestAttempts(aMonthAgo, today).subscribe({
+      next: (res) => {
+        this.allAttempts = res;
+        this.imocha.organizedTestAttempts = this.imocha.processAttempts(res);
       },
-      (error) => {
-        console.log('Error occurred while fetching tests:', error);
+      error: (err) => {
+        console.error(err);
       }
-    );
+    });
+  }
+
+  navigateToTestDetail(testId : number) : void {
+    if(this.imocha.organizedTestAttempts[testId] && this.imocha.organizedTestAttempts[testId].length !== 0) {
+      this.router.navigate(['tests', testId], {state: {attempts: this.imocha.organizedTestAttempts[testId]}});
+    }
   }
 
   onPageChange(page: number) {

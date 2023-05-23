@@ -1,5 +1,3 @@
-<p>test-list works!</p>
-
 <div>
     <h2>Test List</h2>
   
@@ -7,16 +5,26 @@
     <select id="itemsPerPage" [(ngModel)]="itemsPerPage" (change)="getTests()">
       <option *ngFor="let option of itemsPerPageOptions" [value]="option">{{ option }}</option>
     </select>
-  
-    <ul>
-      <li *ngFor="let test of tests">
-        {{ test | json }}
-      </li>
-    </ul>
-  
+
+    <table class="table-auto">
+      <thead>
+        <th>
+          Name
+        </th>
+        <th>
+          Reports
+        </th>
+      </thead>
+      <tbody>
+        <tr class="cursor-pointer" *ngFor="let test of tests" (click)="navigateToTestDetail(test.testId)">
+          <td>{{test.testName}}</td>
+          <td>{{imocha.organizedTestAttempts[test.testId]?.length ?? 0}}</td>
+        </tr>
+      </tbody>
+    </table>
+
     <div>
       <button [disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)">Previous</button>
       <button (click)="onPageChange(currentPage + 1)">Next</button>
     </div>
-  </div>
-  
+</div>
