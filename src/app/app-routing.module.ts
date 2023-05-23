@@ -16,11 +16,11 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'reports/:testId',
+    path: 'tests/:testId',
     component: TestReportListComponent
   },
   {
-    path: 'reports/:testId/attempt/:attemptId',
+    path: 'tests/:testId/report/:attemptId',
     component: TestReportDetailComponent
   },
   {
