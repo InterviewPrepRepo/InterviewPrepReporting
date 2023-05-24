@@ -1,8 +1,11 @@
 <nav class="navbar bg-light">
     <div class="container-fluid">
-        <span class="navbar-brand mb-0 h1"><img class="brand" src="assets/REVATURE-PrimaryLogo-FullClr.svg" alt=""></span>
+        <span class="navbar-brand mb-0 cursor-pointer" routerLink="/tests">
+            <img class="d-inline-block align-text-bottom brand" alt="revature-logo" src="assets/REVATURE-PrimaryLogo-FullClr.svg">
+            Interview Prep
+        </span>
         <form class="form-inline">
-            <button class="btn btn-revature-primary" *ngIf="auth.isAuthenticated()" (click)="logout()">Logout</button>
+            <button class="btn btn-outline-revature-primary" *ngIf="auth.isAuthenticated()" (click)="logout()">Logout</button>
         </form>
     </div>
 </nav>

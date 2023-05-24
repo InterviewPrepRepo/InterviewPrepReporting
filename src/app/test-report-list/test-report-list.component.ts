@@ -12,8 +12,8 @@ export class TestReportListComponent implements OnInit{
   test: any;
   testId : number = 0;
   testAttempts : TestInvitation[] = [];
-  constructor(public imocha : ImochaService, private activeRoute : ActivatedRoute, private router : Router) {
-  }
+  loading : boolean = true;
+  constructor(public imocha : ImochaService, private activeRoute : ActivatedRoute, private router : Router) { }
   ngOnInit(): void {
     this.activeRoute.params.subscribe((params) => {
       this.testId = params['testId'];
@@ -33,16 +33,17 @@ export class TestReportListComponent implements OnInit{
           next: (res) => {
             this.imocha.organizedTestAttempts = this.imocha.processAttempts(res);
             this.testAttempts = this.imocha.organizedTestAttempts[this.testId];
-        console.log(this.testAttempts)
-
+            this.loading = false;
           },
           error: (err) => {
             console.error(err);
+            this.loading = false;
           }
         });
       }
       else {
         this.testAttempts = this.imocha.organizedTestAttempts[this.testId];
+        this.loading = false;
       }
     })
     
