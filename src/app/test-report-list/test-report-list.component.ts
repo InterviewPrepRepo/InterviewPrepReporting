@@ -20,31 +20,31 @@ export class TestReportListComponent implements OnInit{
 
       this.imocha.getTestDetailByTestId(this.testId).subscribe((res) => {
         this.test = res;
+        if(Object.keys(this.imocha.organizedTestAttempts).length === 0) {
+          this.testAttempts = this.imocha.organizedTestAttempts[this.testId];
+  
+          const today = new Date();
+          const aMonthAgo = new Date(today);
+          aMonthAgo.setMonth(today.getMonth() - 1);
+    
+          this.imocha.getTestAttempts(aMonthAgo, today).subscribe({
+            next: (res) => {
+              this.imocha.organizedTestAttempts = this.imocha.processAttempts(res);
+              this.testAttempts = this.imocha.organizedTestAttempts[this.testId];
+              this.loading = false;
+            },
+            error: (err) => {
+              console.error(err);
+              this.loading = false;
+            }
+          });
+        }
+        else {
+          this.testAttempts = this.imocha.organizedTestAttempts[this.testId];
+          this.loading = false;
+        }
       })
 
-      if(Object.keys(this.imocha.organizedTestAttempts).length === 0) {
-        this.testAttempts = this.imocha.organizedTestAttempts[this.testId];
-
-        const today = new Date();
-        const aMonthAgo = new Date(today);
-        aMonthAgo.setMonth(today.getMonth() - 1);
-  
-        this.imocha.getTestAttempts(aMonthAgo, today).subscribe({
-          next: (res) => {
-            this.imocha.organizedTestAttempts = this.imocha.processAttempts(res);
-            this.testAttempts = this.imocha.organizedTestAttempts[this.testId];
-            this.loading = false;
-          },
-          error: (err) => {
-            console.error(err);
-            this.loading = false;
-          }
-        });
-      }
-      else {
-        this.testAttempts = this.imocha.organizedTestAttempts[this.testId];
-        this.loading = false;
-      }
     })
     
   }

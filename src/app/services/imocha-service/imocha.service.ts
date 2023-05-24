@@ -14,6 +14,7 @@ export class ImochaService {
 
   constructor(private http: HttpClient) { }
 
+  tests : VideoTest[] = [];
   organizedTestAttempts: Record<number, TestInvitation[]> = {};
 
   //grabs all attempts and organizes only completed attemps by test ids. 

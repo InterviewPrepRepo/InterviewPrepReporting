@@ -25,25 +25,34 @@ export class TestListComponent implements OnInit {
   }
 
   ngOnInit() {
-    const today = new Date();
-    const aMonthAgo = new Date(today);
-    aMonthAgo.setMonth(today.getMonth() - 1);
+    if(this.imocha.tests.length === 0) {
+      const today = new Date();
+      const aMonthAgo = new Date(today);
+      aMonthAgo.setMonth(today.getMonth() - 1);
 
-    const getTestReq = this.imocha.getTests(this.currentPage, this.itemsPerPage)
-    const getAllAttemptsReq = this.imocha.getTestAttempts(aMonthAgo, today)
+      const getTestReq = this.imocha.getTests(this.currentPage, this.itemsPerPage)
+      const getAllAttemptsReq = this.imocha.getTestAttempts(aMonthAgo, today)
 
-    forkJoin([getTestReq, getAllAttemptsReq]).subscribe({
-      next: ([testsRes, testAttemptsRes]) => {
-        this.loading = false;
-        this.tests = testsRes.tests;
-        this.allAttempts = testAttemptsRes;
-        this.imocha.organizedTestAttempts = this.imocha.processAttempts(testAttemptsRes);
-      },
-      error: (err) => {
-        console.error(err);
-        this.loading = false;
-      }
-    });
+      forkJoin([getTestReq, getAllAttemptsReq]).subscribe({
+        next: ([testsRes, testAttemptsRes]) => {
+          this.tests = testsRes.tests;
+          this.allAttempts = testAttemptsRes;
+          
+          this.imocha.tests = this.tests;
+          this.imocha.organizedTestAttempts = this.imocha.processAttempts(testAttemptsRes);
+          
+          this.loading = false;
+        },
+        error: (err) => {
+          console.error(err);
+          this.loading = false;
+        }
+      });
+    }
+    else {
+      this.tests = this.imocha.tests;
+      this.loading = false;
+    }
   }
 
   navigateToTestDetail(testId : number) : void {
