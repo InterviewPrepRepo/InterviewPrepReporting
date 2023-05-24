@@ -6,3 +6,13 @@
 .cursor-pointer {
     cursor: pointer;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.fa-icon {
+    height: 16pt;
+    width: 16pt;
+}
+.btn-revature-primary {
+    background-color: #ff7014;
+}

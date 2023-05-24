@@ -1,0 +1,15 @@
+.brand {
+    width: 90pt;
+}
+
+
+.btn-revature-primary {
+    background-color: #ff7014;
+    color: #33383f;
+    font-weight: 400;
+}
+
+
+.btn-revature-primary:hover {
+    background-color: #ffcf00;
+}
