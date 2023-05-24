@@ -14,6 +14,7 @@ export class TestReportDetailComponent implements OnInit {
   currentQuestion : number = 1;
   videoUrl : string = "";
   questions : TestAttemptQuestion[] = [];
+  loading: boolean = true;
 
   constructor(private activeRoute : ActivatedRoute, private imocha: ImochaService) { }
 
@@ -23,9 +24,10 @@ export class TestReportDetailComponent implements OnInit {
 
       this.imocha.getQuestionsByTestAttemptId(this.testAttemptId).subscribe((res) => {
         this.questions = res.result;
-        console.log(this.questions)
         const firstAnsweredQ = this.questions.findIndex(q => q.questionStatus === 'Answered')
         this.switchVideo(firstAnsweredQ);
+
+        this.loading = false;
       })
     });
   }

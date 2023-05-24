@@ -1,6 +1,6 @@
 .login-form {
-    max-width: 300pt;
     margin-top: 25vh;
+    width: 17em;
 }
 .login-component {
     display: flex;
@@ -8,16 +8,6 @@
 }
 
 .login-btn {
-        width: 100%;
-        margin-top: 15px;
-}
-
-.btn-revature-primary {
-    background-color: #ff7014;
-    color: #33383f;
-    font-weight: 400;
-}
-
-.btn-revature-primary:hover {
-    background-color: #ffcf00;
+    width: 100%;
+    margin-top: 15px;
 }

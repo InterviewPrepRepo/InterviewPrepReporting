@@ -3,6 +3,7 @@ import { ImochaService } from '../services/imocha-service/imocha.service';
 import VideoTest from '../models/videoTest';
 import TestInvitation from '../models/testInvitation';
 import { Router } from '@angular/router';
+import { Observable, forkJoin } from 'rxjs';
 
 
 @Component({
@@ -14,6 +15,7 @@ export class TestListComponent implements OnInit {
   tests: VideoTest[];
   allAttempts: TestInvitation[] = [];
 
+  loading : boolean = true;
   itemsPerPageOptions: number[] = [5, 10, 20];
   itemsPerPage: number = 5;
   currentPage: number = 1;
@@ -23,47 +25,49 @@ export class TestListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getTests();
-    this.getAllTestAttemtps();
-  }
+    if(this.imocha.tests.length === 0) {
+      const today = new Date();
+      const aMonthAgo = new Date(today);
+      aMonthAgo.setMonth(today.getMonth() - 1);
 
-  getTests() : void {
-    this.imocha.getTests(this.currentPage, this.itemsPerPage).subscribe(
-      {
-        next: (response) => {
-          this.tests = response.tests;
+      const getTestReq = this.imocha.getTests(this.currentPage, this.itemsPerPage)
+      const getAllAttemptsReq = this.imocha.getTestAttempts(aMonthAgo, today)
+
+      forkJoin([getTestReq, getAllAttemptsReq]).subscribe({
+        next: ([testsRes, testAttemptsRes]) => {
+          this.tests = testsRes.tests;
+          this.allAttempts = testAttemptsRes;
+          
+          this.imocha.tests = this.tests;
+          this.imocha.organizedTestAttempts = this.imocha.processAttempts(testAttemptsRes);
+          
+          this.loading = false;
         },
         error: (err) => {
-          console.error('Error occured while fetching tests', err);
+          console.error(err);
+          this.loading = false;
         }
-    });
-  }
-
-  // Actually just getting all test attempts from the past 30 days
-  getAllTestAttemtps() : void {
-    const today = new Date();
-    const aMonthAgo = new Date(today);
-    aMonthAgo.setMonth(today.getMonth() - 1);
-
-    this.imocha.getTestAttempts(aMonthAgo, today).subscribe({
-      next: (res) => {
-        this.allAttempts = res;
-        this.imocha.organizedTestAttempts = this.imocha.processAttempts(res);
-      },
-      error: (err) => {
-        console.error(err);
-      }
-    });
+      });
+    }
+    else {
+      this.tests = this.imocha.tests;
+      this.loading = false;
+    }
   }
 
   navigateToTestDetail(testId : number) : void {
-    if(this.imocha.organizedTestAttempts[testId] && this.imocha.organizedTestAttempts[testId].length !== 0) {
-      this.router.navigate(['tests', testId], {state: {attempts: this.imocha.organizedTestAttempts[testId]}});
-    }
+    this.router.navigate(['tests', testId]);
   }
 
   onPageChange(page: number) {
     this.currentPage = page;
-    this.getTests();
+    this.imocha.getTests(this.currentPage, this.itemsPerPage).subscribe({
+      next: (res: {tests: VideoTest[]}) => {
+        this.tests = res.tests;
+      },
+      error: (err: Error) => {
+        console.error('Error occured while fetching tests', err);
+      }
+  });
   }
 }

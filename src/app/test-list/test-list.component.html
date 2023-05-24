@@ -1,42 +1,32 @@
-<div class="container">
-    <label for="itemsPerPage">Items per page:</label>
+<div class="container col-lg-9">
+    <!-- <label for="itemsPerPage">Items per page:</label>
     <select id="itemsPerPage" [(ngModel)]="itemsPerPage" (change)="getTests()">
       <option *ngFor="let option of itemsPerPageOptions" [value]="option">{{ option }}</option>
-    </select>
-
-    <!-- <table mat-table [dataSource]="tests" class="table-hover cursor-pointer">
-      <ng-container matColumnDef="testName">
-        <th mat-header-cell *matHeaderCellDef>Test Name</th>
-        <td mat-cell *matCellDef="let test"> {{test.testName}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="reports">
-        <th mat-header-cell *matHeaderCellDef>Reports</th>
-        <td mat-cell *matCellDef="let test"> {{imocha.organizedTestAttempts[test.testId]?.length ?? 0}} </td>
-      </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="['testName', 'reports']"></tr>
-        <tr mat-row *matRowDef="let row; columns: ['testName', 'reports'];" (click)="navigateToTestDetail(row.testId)"></tr>
-    </table> -->
+    </select> -->
+    <div class="row">
+      <app-loading *ngIf="loading; else testData"></app-loading>
     
-    <table class="table table-hover">
-      <thead>
-        <th>
-          Name
-        </th>
-        <th>
-          Reports
-        </th>
-      </thead>
-      <tbody>
-        <tr class="cursor-pointer" *ngFor="let test of tests" (click)="navigateToTestDetail(test.testId)">
-          <td>{{test.testName}}</td>
-          <td>{{imocha.organizedTestAttempts[test.testId]?.length ?? 0}}</td>
-        </tr>
-      </tbody>
-    </table>
-    <div>
-      <button [disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)">Previous</button>
-      <button (click)="onPageChange(currentPage + 1)">Next</button>
+      <ng-template #testData>
+        <table class="table table-hover">
+          <thead>
+            <th>
+              Test Name
+            </th>
+            <th>
+              Reports
+            </th>
+          </thead>
+          <tbody>
+            <tr class="cursor-pointer" *ngFor="let test of tests" (click)="navigateToTestDetail(test.testId)">
+              <td>{{test.testName}}</td>
+              <td>{{imocha.organizedTestAttempts[test.testId]?.length ?? 0}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-template>
+        <!-- <div>
+          <button [disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)">Previous</button>
+          <button (click)="onPageChange(currentPage + 1)">Next</button>
+        </div> -->
     </div>
 </div>
