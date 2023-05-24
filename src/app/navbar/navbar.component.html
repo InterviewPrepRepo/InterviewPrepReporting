@@ -1,1 +1,8 @@
-<button (click)="logout()">logout</button>
+<nav class="navbar bg-light">
+    <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1"><img class="brand" src="assets/REVATURE-PrimaryLogo-FullClr.svg" alt=""></span>
+        <form class="form-inline">
+            <button class="btn btn-revature-primary" *ngIf="auth.isAuthenticated()" (click)="logout()">Logout</button>
+        </form>
+    </div>
+</nav>

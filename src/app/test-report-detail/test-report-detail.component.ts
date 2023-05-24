@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ImochaService } from '../services/imocha-service/imocha.service';
 import TestAttemptQuestion from '../models/testAttemptQuestion';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-test-report-detail',
@@ -23,14 +24,15 @@ export class TestReportDetailComponent implements OnInit {
       this.imocha.getQuestionsByTestAttemptId(this.testAttemptId).subscribe((res) => {
         this.questions = res.result;
         console.log(this.questions)
-
-        this.switchVideo(0);
+        const firstAnsweredQ = this.questions.findIndex(q => q.questionStatus === 'Answered')
+        this.switchVideo(firstAnsweredQ);
       })
     });
   }
 
   switchVideo(index : number) {
     if(this.questions[index].questionStatus === 'Answered') {
+      this.currentQuestion = index + 1;
       this.videoUrl = this.questions[index].candidateAnswer.videoAnswer.videoUrl;
     } 
   }

@@ -1,0 +1,16 @@
+.card-hover :hover {
+    background-color: #eeeeee
+}
+
+.card-active {
+    border-width: 2pt;
+    background-color: #eeeeee;
+}
+
+.look-disabled {
+    background-color: darkgray;
+}
+
+.cursor-notallowed {
+    cursor: not-allowed
+}

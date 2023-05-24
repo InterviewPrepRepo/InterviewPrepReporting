@@ -12,7 +12,6 @@ export class AuthService {
 
   public isAuthenticated() : boolean {
     if(this.local.get('ipr_currentUser')) {
-      console.log('found current user');
       return true;
     }
     else {
