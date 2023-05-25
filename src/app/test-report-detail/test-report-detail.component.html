@@ -7,7 +7,7 @@
                     <div (click)="switchVideo(i)" class="card mb-1" [ngClass]="{'card-active' : i === currentQuestion - 1, 'look-disabled cursor-notallowed': q.questionStatus !== 'Answered', 'cursor-pointer card-hover': q.questionStatus === 'Answered'}" >
                         <div class="card-body">
                             <h5>Q{{i + 1}}. <span [innerHTML]="q.question"></span></h5>
-                            <p>Socre: 0/100</p>
+                            <p>{{q.questionStatus === 'Answered' ? "Score : 0/100" : "Not Answered"}}</p>
                         </div>
                     </div>
                 </div>
