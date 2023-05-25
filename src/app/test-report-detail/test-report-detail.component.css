@@ -1,14 +1,14 @@
-.card-hover :hover {
-    background-color: #eeeeee
+.card.card-hover:hover {
+    border: 3pt solid var(--revature-orange);
 }
 
 .card-active {
-    border-width: 2pt;
-    background-color: #eeeeee;
+    border-width: 3pt;
+    border-color: var(--revature-orange);
 }
 
 .look-disabled {
-    background-color: darkgray;
+    background-color: #eee;
 }
 
 .cursor-notallowed {
