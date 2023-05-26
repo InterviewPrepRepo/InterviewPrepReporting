@@ -3,5 +3,6 @@ export default interface TestInvitation {
     testInvitationId : number,
     name : string,
     email : string,
-    teststatus: string
+    teststatus: string,
+    score? : number
 }

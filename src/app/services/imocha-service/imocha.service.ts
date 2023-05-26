@@ -53,6 +53,10 @@ export class ImochaService {
     })
   }
 
+  getTestAttemptByTestAttemptId(testAttemptId: number) : Observable<any> {
+    return this.http.get<any>(this.urlBuilder(`reports/${testAttemptId}`))
+  }
+
 
   getQuestionsByTestAttemptId(testAttemptId : number) : Observable<{result : TestAttemptQuestion[]}> {
     return this.http.get<{result : TestAttemptQuestion[]}>(this.urlBuilder(`reports/${testAttemptId}/questions`));
