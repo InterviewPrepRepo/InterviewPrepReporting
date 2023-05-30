@@ -46,6 +46,7 @@ export class TestReportListComponent implements OnInit{
           this.testAttempts = this.imocha.organizedTestAttempts[this.testId];
           //gonna call our backend one more time for each individual test attempts info so we can display the score
           this.getIndividualAttempts(this.testAttempts);
+
         }
       })
 
@@ -54,6 +55,10 @@ export class TestReportListComponent implements OnInit{
   }
 
   private getIndividualAttempts(attemptArr: TestInvitation[]) : void{
+    if(!attemptArr || attemptArr.length === 0) {
+      this.loading = false;
+      return;
+    } 
     let callArr : Observable<any>[] = [];
     attemptArr.forEach((attempt : TestInvitation) => {
       callArr.push(this.imocha.getTestAttemptByTestAttemptId(attempt.testInvitationId));
