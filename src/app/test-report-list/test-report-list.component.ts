@@ -73,11 +73,11 @@ export class TestReportListComponent implements OnInit{
 
       for(let attempt of attemptArr) {
 
-        if(responseMap[attempt.testInvitationId] && responseMap[attempt.testInvitationId].average !== -1) {
+        if(responseMap[attempt.testInvitationId] && responseMap[attempt.testInvitationId].score !== -1) {
           attempt.score = parseFloat(((responseMap[attempt.testInvitationId].score ?? 0)/ this.test.questions)?.toPrecision(4));
         }
         else {
-          attempt.score = -1;
+          attempt.score = 0;
         }
       }
       this.testAttempts = attemptArr;

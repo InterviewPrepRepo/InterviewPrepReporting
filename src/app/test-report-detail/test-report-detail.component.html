@@ -1,7 +1,7 @@
 <app-loading *ngIf="loading; else questionDetail"></app-loading>
 <ng-template #questionDetail>
     <div class="container mt-2">
-        <div *ngIf="questions.length > 0; else noQuestions" class="row">
+        <div *ngIf="questions && questions.length > 0; else noQuestions" class="row">
             <div class="col-8 col-sm-6">
                 <div *ngFor="let q of questions; let i = index">
                     <div (click)="switchVideo(i)" class="card mb-1" [ngClass]="{'card-active' : i === currentQuestion - 1, 'look-disabled cursor-notallowed': q.questionStatus !== 'Answered', 'cursor-pointer card-hover': q.questionStatus === 'Answered'}" >

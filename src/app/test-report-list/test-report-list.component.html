@@ -14,7 +14,7 @@
                 <tr *ngFor="let attempt of testAttempts">
                     <td>{{attempt.name}}</td>
                     <td>{{attempt.email}}</td>
-                    <td>{{attempt.score === -1 ? attempt.score : 'Processing...'}}</td>
+                    <td>{{attempt.score}}</td>
                     <td><button class="btn btn-revature-primary" [routerLink]="'report/' + attempt.testInvitationId"><img class="table-icon" src="assets/arrow-right-to-bracket.svg" alt="" srcset=""></button></td>
                 </tr>
             </tbody>
