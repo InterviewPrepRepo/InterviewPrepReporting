@@ -29,7 +29,7 @@ export class TestReportListComponent implements OnInit{
   
           const today = new Date();
           const aMonthAgo = new Date(today);
-          aMonthAgo.setMonth(today.getMonth() - 1);
+          aMonthAgo.setDate(today.getDate() - 30);
     
           this.imocha.getTestAttempts(aMonthAgo, today).subscribe({
             next: (res) => {

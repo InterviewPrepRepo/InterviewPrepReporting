@@ -25,7 +25,7 @@ export class TestReportDetailComponent implements OnInit {
       this.imocha.getQuestionsByTestAttemptId(this.testAttemptId).subscribe((res) => {
         this.questions = res.result;
 
-        if(this.questions.length > 0) {
+        if(this.questions && this.questions.length > 0) {
           const firstAnsweredQ = this.questions.findIndex(q => q.questionStatus === 'Answered')
           this.switchVideo(firstAnsweredQ);
         }
@@ -36,7 +36,7 @@ export class TestReportDetailComponent implements OnInit {
   }
 
   switchVideo(index : number) {
-    if(this.questions[index].questionStatus === 'Answered') {
+    if(this.questions[index] && this.questions[index].questionStatus === 'Answered') {
       this.currentQuestion = index + 1;
       this.videoUrl = this.questions[index].candidateAnswer.videoAnswer.videoUrl;
     } 
