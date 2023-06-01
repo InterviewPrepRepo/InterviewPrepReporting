@@ -22,7 +22,6 @@ export class TestReportListComponent implements OnInit{
 
       this.imocha.getTestDetailByTestId(this.testId).subscribe((res) => {
         this.test = res;
-        console.log(res);
       
         if(Object.keys(this.imocha.organizedTestAttempts).length === 0) {
           this.testAttempts = this.imocha.organizedTestAttempts[this.testId];
@@ -69,12 +68,17 @@ export class TestReportListComponent implements OnInit{
     forkJoin<TestInvitation[]>(callArr).subscribe((responseArr) => {
       let responseMap : Record<number, TestInvitation> = {};
       for(let response of responseArr) {
-        responseMap[response.testInvitationId] = response;
+          responseMap[response.testInvitationId] = response;
       }
 
       for(let attempt of attemptArr) {
-        console.log(attempt);
-        attempt.score = parseFloat(((responseMap[attempt.testInvitationId].score ?? 0)/ this.test.questions)?.toPrecision(4));
+
+        if(responseMap[attempt.testInvitationId] && responseMap[attempt.testInvitationId].average !== -1) {
+          attempt.score = parseFloat(((responseMap[attempt.testInvitationId].score ?? 0)/ this.test.questions)?.toPrecision(4));
+        }
+        else {
+          attempt.score = -1;
+        }
       }
       this.testAttempts = attemptArr;
       this.loading = false;

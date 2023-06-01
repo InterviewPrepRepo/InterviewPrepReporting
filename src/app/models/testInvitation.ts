@@ -4,5 +4,6 @@ export default interface TestInvitation {
     name : string,
     email : string,
     teststatus: string,
-    score? : number
+    score? : number,
+    average?: number
 }
