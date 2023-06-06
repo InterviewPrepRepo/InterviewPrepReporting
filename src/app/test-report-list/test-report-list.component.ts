@@ -11,7 +11,7 @@ import VideoTest from '../models/videoTest';
   styleUrls: ['./test-report-list.component.css']
 })
 export class TestReportListComponent implements OnInit{
-  test: any = null;
+  test: VideoTest | undefined = undefined;
   testId : number = 0;
   testAttempts : TestInvitation[] = [];
   loading : boolean = true;
@@ -82,14 +82,19 @@ export class TestReportListComponent implements OnInit{
       for(let attempt of attemptArr) {
         //If it exists (which means iMocha has processed it) and the score isn't -1 (which means interview bot has processed it), then calculate the score by taking the cumulative total and dividing them by the number of questions
         if(responseMap[attempt.testInvitationId] && responseMap[attempt.testInvitationId].score !== -1) {
-          attempt.score = parseFloat(((responseMap[attempt.testInvitationId].score ?? 0)/ this.test?.questions)?.toPrecision(4));
+          const scoreSum = responseMap[attempt.testInvitationId].score ?? 0
+          const numQuestion = this.test ? this.test.questions : 1;
+
+          //this nonsense is because we are trying to calculate average, and then to display it in 4 significant digit then assign the value back to number type property.
+          //toPrecision gets us the significant digits, but it returns string to it needs to be converted back to number using parseFloat function
+          attempt.score = parseFloat((scoreSum / numQuestion)?.toPrecision(4));
         }
         else {
           //if not (then someone is still processing this...) then just set the score to 0
           attempt.score = 0;
         }
       }
-      
+
       //finally set this attempt array and set loading false
       this.testAttempts = attemptArr;
       this.loading = false;
