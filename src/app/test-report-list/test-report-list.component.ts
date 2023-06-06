@@ -25,12 +25,8 @@ export class TestReportListComponent implements OnInit{
       
         if(Object.keys(this.imocha.organizedTestAttempts).length === 0) {
           this.testAttempts = this.imocha.organizedTestAttempts[this.testId];
-  
-          const today = new Date();
-          const aMonthAgo = new Date(today);
-          aMonthAgo.setDate(today.getDate() - 30);
-    
-          this.imocha.getTestAttempts(aMonthAgo, today).subscribe({
+
+          this.imocha.getTestAttempts().subscribe({
             next: (res) => {
               this.imocha.organizedTestAttempts = this.imocha.processAttempts(res);
               this.testAttempts = this.imocha.organizedTestAttempts[this.testId];

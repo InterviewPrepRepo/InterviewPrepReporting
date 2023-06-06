@@ -38,18 +38,29 @@ export class ImochaService {
     return testToAttemptsMap;
   }
 
-  getTests(pageNo : number, itemsPerPage : number) : Observable<{tests: VideoTest[]}> {
+  //Grabs all tests labelled 'Video Test' from iMocha. By default, it grabs 100 tests
+  getTests(pageNo : number = 1, itemsPerPage : number = 100) : Observable<{tests: VideoTest[]}> {
     return this.http.get<{tests: VideoTest[]}>(this.urlBuilder(`tests?pageNo=${pageNo}&pageSize=${itemsPerPage}`))
   }
 
+  //Get a particular test information via test Id.
   getTestDetailByTestId(testId : number) : Observable<VideoTest> {
     return this.http.get<VideoTest>(this.urlBuilder(`tests/${testId}`))
   }
 
-  getTestAttempts(startDate: Date, endDate: Date) : Observable<TestInvitation[]> {
+  //Gets all test attempts from a date range.
+  //Automatically sets the date range to the past 30 days, unless given a specific date range
+  //Additionally, you can call this method with testId to filter it by a particular testId 
+  getTestAttempts(testId? : number, startDate?: Date, endDate?: Date, ) : Observable<TestInvitation[]> {
+    if(!endDate && !startDate) {
+      endDate = new Date();
+      startDate = new Date(endDate);
+      startDate.setDate(endDate.getDate() - 30);
+    }
     return this.http.post<TestInvitation[]>(this.urlBuilder('tests/attempts'), {
       "startDateTime": startDate,
-      "endDateTime": endDate
+      "endDateTime": endDate,
+      "testId": testId
     })
   }
 

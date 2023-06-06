@@ -1,8 +1,4 @@
 <div class="container col-lg-9">
-    <!-- <label for="itemsPerPage">Items per page:</label>
-    <select id="itemsPerPage" [(ngModel)]="itemsPerPage" (change)="getTests()">
-      <option *ngFor="let option of itemsPerPageOptions" [value]="option">{{ option }}</option>
-    </select> -->
     <div class="row">
       <app-loading *ngIf="loading; else testData"></app-loading>
     
@@ -24,9 +20,5 @@
           </tbody>
         </table>
       </ng-template>
-        <!-- <div>
-          <button [disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)">Previous</button>
-          <button (click)="onPageChange(currentPage + 1)">Next</button>
-        </div> -->
     </div>
 </div>

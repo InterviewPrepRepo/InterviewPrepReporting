@@ -16,9 +16,6 @@ export class TestListComponent implements OnInit {
   allAttempts: TestInvitation[] = [];
 
   loading : boolean = true;
-  itemsPerPageOptions: number[] = [5, 10, 20];
-  itemsPerPage: number = 5;
-  currentPage: number = 1;
 
   constructor(public imocha: ImochaService, private router : Router) {
     this.tests = [];
@@ -26,12 +23,8 @@ export class TestListComponent implements OnInit {
 
   ngOnInit() {
     if(this.imocha.tests.length === 0) {
-      const today = new Date();
-      const aMonthAgo = new Date(today);
-      aMonthAgo.setDate(today.getDate() - 30);
-
-      const getTestReq = this.imocha.getTests(this.currentPage, this.itemsPerPage)
-      const getAllAttemptsReq = this.imocha.getTestAttempts(aMonthAgo, today)
+      const getTestReq = this.imocha.getTests()
+      const getAllAttemptsReq = this.imocha.getTestAttempts()
 
       forkJoin([getTestReq, getAllAttemptsReq]).subscribe({
         next: ([testsRes, testAttemptsRes]) => {
@@ -57,17 +50,5 @@ export class TestListComponent implements OnInit {
 
   navigateToTestDetail(testId : number) : void {
     this.router.navigate(['tests', testId]);
-  }
-
-  onPageChange(page: number) {
-    this.currentPage = page;
-    this.imocha.getTests(this.currentPage, this.itemsPerPage).subscribe({
-      next: (res: {tests: VideoTest[]}) => {
-        this.tests = res.tests;
-      },
-      error: (err: Error) => {
-        console.error('Error occured while fetching tests', err);
-      }
-  });
   }
 }
