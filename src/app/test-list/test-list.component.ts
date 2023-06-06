@@ -3,7 +3,7 @@ import { ImochaService } from '../services/imocha-service/imocha.service';
 import VideoTest from '../models/videoTest';
 import TestInvitation from '../models/testInvitation';
 import { Router } from '@angular/router';
-import { Observable, forkJoin } from 'rxjs';
+import {forkJoin } from 'rxjs';
 
 
 @Component({
