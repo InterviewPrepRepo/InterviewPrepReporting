@@ -1,0 +1,9 @@
+<form [formGroup]="questionForm">
+    <label>{{question.question}}</label>
+    <div>
+        <div><input type="radio" formControlName="answer" value={{question.options[0]}}>{{question.options[0]}}</div>
+        <div><input type="radio" formControlName="answer" value={{question.options[1]}}>{{question.options[1]}}</div>
+        <div><input type="radio" formControlName="answer" value={{question.options[2]}}>{{question.options[2]}}</div>
+        <div><input type="radio" formControlName="answer" value={{question.options[3]}}>{{question.options[3]}}</div>
+    </div>
+</form>

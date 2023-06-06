@@ -1,0 +1,11 @@
+<c-carousel [interval]="0" [dark]="true" [wrap]="false">
+    <c-carousel-inner>
+        <c-carousel-item *ngFor="let question of sampleQuestions">
+            <div class="container">
+                <app-question-detail [question]="question"></app-question-detail>
+            </div>
+        </c-carousel-item>
+    </c-carousel-inner>
+    <c-carousel-control [routerLink] caption="Previous" direction="prev"></c-carousel-control>
+    <c-carousel-control [routerLink] caption="Next" direction="next"></c-carousel-control>
+</c-carousel>

@@ -10,10 +10,13 @@ import { TestReportListComponent } from './test-report-list/test-report-list.com
 import { TestReportDetailComponent } from './test-report-detail/test-report-detail.component';
 import { TestInviteComponent } from './test-invite/test-invite.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule} from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoadingComponent } from './loading/loading.component';
+import { QuestionDetailComponent } from './question-detail/question-detail.component';
+import { QuestionCarouselComponent } from './question-carousel/question-carousel.component';
+import { CarouselModule } from '@coreui/angular';
 
 
 
@@ -27,14 +30,18 @@ import { LoadingComponent } from './loading/loading.component';
     TestReportDetailComponent,
     TestInviteComponent,
     NotFoundComponent,
-    LoadingComponent
+    LoadingComponent,
+    QuestionDetailComponent,
+    QuestionCarouselComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    CarouselModule
   ],
   providers: [],
   bootstrap: [AppComponent]
