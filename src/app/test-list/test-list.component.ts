@@ -28,7 +28,7 @@ export class TestListComponent implements OnInit {
     if(this.imocha.tests.length === 0) {
       const today = new Date();
       const aMonthAgo = new Date(today);
-      aMonthAgo.setDate(today.getDate() - 1);
+      aMonthAgo.setDate(today.getDate() - 30);
 
       const getTestReq = this.imocha.getTests(this.currentPage, this.itemsPerPage)
       const getAllAttemptsReq = this.imocha.getTestAttempts(aMonthAgo, today)

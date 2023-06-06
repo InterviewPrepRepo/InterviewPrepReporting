@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ImochaService } from '../services/imocha-service/imocha.service';
 import TestAttemptQuestion from '../models/testAttemptQuestion';
-import { first } from 'rxjs';
 
 @Component({
   selector: 'app-test-report-detail',

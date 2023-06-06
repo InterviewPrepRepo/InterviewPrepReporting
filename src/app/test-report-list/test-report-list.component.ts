@@ -50,9 +50,7 @@ export class TestReportListComponent implements OnInit{
 
         }
       })
-
     })
-    
   }
 
   private getIndividualAttempts(attemptArr: TestInvitation[]) : void{
