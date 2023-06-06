@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     if (this.username === 'admin' && this.password === 'password') {
       // Successful login, redirect to dashboard
       
-      this.auth.setCurrentUser({name: this.username});
+      this.auth.setCurrentUser({name: this.username, email: this.username});
       this.router.navigate(['tests'])
     } else {
       // Invalid credentials, display error message

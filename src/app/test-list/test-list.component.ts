@@ -3,7 +3,7 @@ import { ImochaService } from '../services/imocha-service/imocha.service';
 import VideoTest from '../models/videoTest';
 import TestInvitation from '../models/testInvitation';
 import { Router } from '@angular/router';
-import { Observable, forkJoin } from 'rxjs';
+import {forkJoin } from 'rxjs';
 
 
 @Component({
@@ -16,28 +16,25 @@ export class TestListComponent implements OnInit {
   allAttempts: TestInvitation[] = [];
 
   loading : boolean = true;
-  itemsPerPageOptions: number[] = [5, 10, 20];
-  itemsPerPage: number = 5;
-  currentPage: number = 1;
 
   constructor(public imocha: ImochaService, private router : Router) {
     this.tests = [];
   }
 
   ngOnInit() {
+    //First, check the imocha service to see if there is cached data before making calls to backend
     if(this.imocha.tests.length === 0) {
-      const today = new Date();
-      const aMonthAgo = new Date(today);
-      aMonthAgo.setDate(today.getDate() - 30);
 
-      const getTestReq = this.imocha.getTests(this.currentPage, this.itemsPerPage)
-      const getAllAttemptsReq = this.imocha.getTestAttempts(aMonthAgo, today)
+      //if there is nothing stored in service, we'll get all tests labeled Interview Prep Video Tests and all the attempts from the past 30 days 
+      const getTestReq = this.imocha.getTests()
+      const getAllAttemptsReq = this.imocha.getTestAttempts()
 
       forkJoin([getTestReq, getAllAttemptsReq]).subscribe({
         next: ([testsRes, testAttemptsRes]) => {
           this.tests = testsRes.tests;
           this.allAttempts = testAttemptsRes;
           
+          //cache these in service for faster performance
           this.imocha.tests = this.tests;
           this.imocha.organizedTestAttempts = this.imocha.processAttempts(testAttemptsRes);
           
@@ -50,24 +47,12 @@ export class TestListComponent implements OnInit {
       });
     }
     else {
-      this.tests = this.imocha.tests;
+      //if things already exists, then no need to load anything. Just use iMocha's cache
       this.loading = false;
     }
   }
 
   navigateToTestDetail(testId : number) : void {
     this.router.navigate(['tests', testId]);
-  }
-
-  onPageChange(page: number) {
-    this.currentPage = page;
-    this.imocha.getTests(this.currentPage, this.itemsPerPage).subscribe({
-      next: (res: {tests: VideoTest[]}) => {
-        this.tests = res.tests;
-      },
-      error: (err: Error) => {
-        console.error('Error occured while fetching tests', err);
-      }
-  });
   }
 }

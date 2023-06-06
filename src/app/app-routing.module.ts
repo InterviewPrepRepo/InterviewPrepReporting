@@ -4,7 +4,6 @@ import { LoginComponent } from './login/login.component';
 import { TestListComponent } from './test-list/test-list.component';
 import { TestReportListComponent } from './test-report-list/test-report-list.component';
 import { TestReportDetailComponent } from './test-report-detail/test-report-detail.component';
-import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthService } from './services/auth-service/auth.service';
 
 const canActivateMain: CanActivateFn =
@@ -45,7 +44,8 @@ const routes: Routes = [
   },
   {
     path: '**',
-    component: NotFoundComponent
+    redirectTo: '/tests',
+    pathMatch: 'full' 
   }
 ];
 

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot } from '@angular/router';
 import { LocalStorageService } from 'angular-web-storage';
-import user from 'src/app/models/user';
+import User from 'src/app/models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +18,11 @@ export class AuthService {
     }
   }
 
-  public getCurrentUser() : user {
+  public getCurrentUser() : User {
     return this.local.get('ipr_currentUser');
   }
 
-  public setCurrentUser(userToSet : user) : void {
+  public setCurrentUser(userToSet : User) : void {
     if(!userToSet) return;
     this.local.set('ipr_currentUser', userToSet, 1, 'd');
   }

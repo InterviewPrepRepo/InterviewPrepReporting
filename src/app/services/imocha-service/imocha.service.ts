@@ -17,6 +17,10 @@ export class ImochaService {
   tests : VideoTest[] = [];
   organizedTestAttempts: Record<number, TestInvitation[]> = {};
 
+  private urlBuilder(urlSegment : string) {
+    return this.baseurl + urlSegment;
+  }
+
   //grabs all attempts and organizes only completed attemps by test ids. 
   processAttempts(attempts : TestInvitation[]) : Record<number, TestInvitation[]> {
     let testToAttemptsMap : Record<number, TestInvitation[]> = {};
@@ -34,30 +38,38 @@ export class ImochaService {
     return testToAttemptsMap;
   }
 
-  private urlBuilder(urlSegment : string) {
-    return this.baseurl + urlSegment;
-  }
-
-  getTests(pageNo : number, itemsPerPage : number) : Observable<{tests: VideoTest[]}> {
+  //Grabs all tests labelled 'Video Test' from iMocha. By default, it grabs 100 tests
+  getTests(pageNo : number = 1, itemsPerPage : number = 100) : Observable<{tests: VideoTest[]}> {
     return this.http.get<{tests: VideoTest[]}>(this.urlBuilder(`tests?pageNo=${pageNo}&pageSize=${itemsPerPage}`))
   }
 
-  getTestDetailByTestId(testId : number) : Observable<any> {
-    return this.http.get(this.urlBuilder(`tests/${testId}`))
+  //Get a particular test information via test Id.
+  getTestDetailByTestId(testId : number) : Observable<VideoTest> {
+    return this.http.get<VideoTest>(this.urlBuilder(`tests/${testId}`))
   }
 
-  getTestAttempts(startDate: Date, endDate: Date) : Observable<TestInvitation[]> {
+  //Gets all test attempts from a date range.
+  //Automatically sets the date range to the past 30 days, unless given a specific date range
+  //Additionally, you can call this method with testId to filter it by a particular testId 
+  getTestAttempts(testId? : number, startDate?: Date, endDate?: Date, ) : Observable<TestInvitation[]> {
+    if(!endDate && !startDate) {
+      endDate = new Date();
+      startDate = new Date(endDate);
+      startDate.setDate(endDate.getDate() - 30);
+    }
     return this.http.post<TestInvitation[]>(this.urlBuilder('tests/attempts'), {
       "startDateTime": startDate,
-      "endDateTime": endDate
+      "endDateTime": endDate,
+      "testId": testId
     })
   }
 
-  getTestAttemptByTestAttemptId(testAttemptId: number) : Observable<any> {
-    return this.http.get<any>(this.urlBuilder(`reports/${testAttemptId}`))
+  //This method gets the data regarding test attempt itself. Also includes total cumulatie score
+  getTestAttemptByTestAttemptId(testAttemptId: number) : Observable<TestInvitation> {
+    return this.http.get<TestInvitation>(this.urlBuilder(`reports/${testAttemptId}`))
   }
 
-
+  //gets each question detail and score for one test attempt
   getQuestionsByTestAttemptId(testAttemptId : number) : Observable<{result : TestAttemptQuestion[]}> {
     return this.http.get<{result : TestAttemptQuestion[]}>(this.urlBuilder(`reports/${testAttemptId}/questions`));
   }
