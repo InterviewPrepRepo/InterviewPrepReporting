@@ -17,6 +17,10 @@ export class ImochaService {
   tests : VideoTest[] = [];
   organizedTestAttempts: Record<number, TestInvitation[]> = {};
 
+  private urlBuilder(urlSegment : string) {
+    return this.baseurl + urlSegment;
+  }
+
   //grabs all attempts and organizes only completed attemps by test ids. 
   processAttempts(attempts : TestInvitation[]) : Record<number, TestInvitation[]> {
     let testToAttemptsMap : Record<number, TestInvitation[]> = {};
@@ -34,16 +38,12 @@ export class ImochaService {
     return testToAttemptsMap;
   }
 
-  private urlBuilder(urlSegment : string) {
-    return this.baseurl + urlSegment;
-  }
-
   getTests(pageNo : number, itemsPerPage : number) : Observable<{tests: VideoTest[]}> {
     return this.http.get<{tests: VideoTest[]}>(this.urlBuilder(`tests?pageNo=${pageNo}&pageSize=${itemsPerPage}`))
   }
 
-  getTestDetailByTestId(testId : number) : Observable<any> {
-    return this.http.get(this.urlBuilder(`tests/${testId}`))
+  getTestDetailByTestId(testId : number) : Observable<VideoTest> {
+    return this.http.get<VideoTest>(this.urlBuilder(`tests/${testId}`))
   }
 
   getTestAttempts(startDate: Date, endDate: Date) : Observable<TestInvitation[]> {
@@ -53,10 +53,9 @@ export class ImochaService {
     })
   }
 
-  getTestAttemptByTestAttemptId(testAttemptId: number) : Observable<any> {
-    return this.http.get<any>(this.urlBuilder(`reports/${testAttemptId}`))
+  getTestAttemptByTestAttemptId(testAttemptId: number) : Observable<TestInvitation> {
+    return this.http.get<TestInvitation>(this.urlBuilder(`reports/${testAttemptId}`))
   }
-
 
   getQuestionsByTestAttemptId(testAttemptId : number) : Observable<{result : TestAttemptQuestion[]}> {
     return this.http.get<{result : TestAttemptQuestion[]}>(this.urlBuilder(`reports/${testAttemptId}/questions`));
