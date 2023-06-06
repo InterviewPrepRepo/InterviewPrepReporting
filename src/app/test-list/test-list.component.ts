@@ -22,7 +22,10 @@ export class TestListComponent implements OnInit {
   }
 
   ngOnInit() {
+    //First, check the imocha service to see if there is cached data before making calls to backend
     if(this.imocha.tests.length === 0) {
+
+      //if there is nothing stored in service, we'll get all tests labeled Interview Prep Video Tests and all the attempts from the past 30 days 
       const getTestReq = this.imocha.getTests()
       const getAllAttemptsReq = this.imocha.getTestAttempts()
 
@@ -31,6 +34,7 @@ export class TestListComponent implements OnInit {
           this.tests = testsRes.tests;
           this.allAttempts = testAttemptsRes;
           
+          //cache these in service for faster performance
           this.imocha.tests = this.tests;
           this.imocha.organizedTestAttempts = this.imocha.processAttempts(testAttemptsRes);
           
@@ -43,7 +47,7 @@ export class TestListComponent implements OnInit {
       });
     }
     else {
-      this.tests = this.imocha.tests;
+      //if things already exists, then no need to load anything. Just use iMocha's cache
       this.loading = false;
     }
   }

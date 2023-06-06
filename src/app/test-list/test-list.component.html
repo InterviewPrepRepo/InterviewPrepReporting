@@ -13,7 +13,7 @@
             </th>
           </thead>
           <tbody>
-            <tr class="cursor-pointer" *ngFor="let test of tests" (click)="navigateToTestDetail(test.testId)">
+            <tr class="cursor-pointer" *ngFor="let test of imocha.tests" (click)="navigateToTestDetail(test.testId)">
               <td>{{test.testName}}</td>
               <td>{{imocha.organizedTestAttempts[test.testId]?.length ?? 0}}</td>
             </tr>
