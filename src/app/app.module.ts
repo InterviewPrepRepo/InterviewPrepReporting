@@ -8,7 +8,6 @@ import { LoginComponent } from './login/login.component';
 import { TestListComponent } from './test-list/test-list.component';
 import { TestReportListComponent } from './test-report-list/test-report-list.component';
 import { TestReportDetailComponent } from './test-report-detail/test-report-detail.component';
-import { TestInviteComponent } from './test-invite/test-invite.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -24,7 +23,6 @@ import { LoadingComponent } from './loading/loading.component';
     TestListComponent,
     TestReportListComponent,
     TestReportDetailComponent,
-    TestInviteComponent,
     LoadingComponent
   ],
   imports: [
