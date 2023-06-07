@@ -16,7 +16,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoadingComponent } from './loading/loading.component';
 import { QuestionDetailComponent } from './question-detail/question-detail.component';
 import { QuestionCarouselComponent } from './question-carousel/question-carousel.component';
-import { CarouselModule } from '@coreui/angular';
+import { InterviewInviteComponent } from './interview-invite/interview-invite.component';
+import { ProgressModule } from '@coreui/angular';
 
 
 
@@ -32,7 +33,8 @@ import { CarouselModule } from '@coreui/angular';
     NotFoundComponent,
     LoadingComponent,
     QuestionDetailComponent,
-    QuestionCarouselComponent
+    QuestionCarouselComponent,
+    InterviewInviteComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +43,8 @@ import { CarouselModule } from '@coreui/angular';
     HttpClientModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    CarouselModule
+    ProgressModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

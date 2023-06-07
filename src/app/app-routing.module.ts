@@ -7,6 +7,7 @@ import { TestReportDetailComponent } from './test-report-detail/test-report-deta
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthService } from './services/auth-service/auth.service';
 import { QuestionCarouselComponent } from './question-carousel/question-carousel.component';
+import { InterviewInviteComponent } from './interview-invite/interview-invite.component';
 
 const canActivateMain: CanActivateFn =
   (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
@@ -42,6 +43,10 @@ const routes: Routes = [
   {
     path: 'question',
     component: QuestionCarouselComponent
+  },
+  {
+    path: 'interview',
+    component: InterviewInviteComponent
   },
   {
     path: '',
