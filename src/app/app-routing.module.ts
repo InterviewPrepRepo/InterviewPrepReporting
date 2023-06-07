@@ -40,7 +40,7 @@ const routes: Routes = [
     canActivate: [canActivateMain]
   },
   {
-    path: 'question',
+    path: 'quiz',
     component: QuestionCarouselComponent
   },
   {
