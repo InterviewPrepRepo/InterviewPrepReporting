@@ -5,17 +5,19 @@ import { TestListComponent } from './test-list/test-list.component';
 import { TestReportListComponent } from './test-report-list/test-report-list.component';
 import { TestReportDetailComponent } from './test-report-detail/test-report-detail.component';
 import { AuthService } from './services/auth-service/auth.service';
+import { QuestionCarouselComponent } from './question-carousel/question-carousel.component';
+import { InterviewInviteComponent } from './interview-invite/interview-invite.component';
 
 const canActivateMain: CanActivateFn =
-    (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
-      const router = inject(Router);
-      if(inject(AuthService).isAuthenticated()) {
-        return true;
-      } else {
-        router.navigate(['login']);
-        return false;
-      }
-    };
+  (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
+    const router = inject(Router);
+    if (inject(AuthService).isAuthenticated()) {
+      return true;
+    } else {
+      router.navigate(['login']);
+      return false;
+    }
+  };
 
 const routes: Routes = [
   {
@@ -36,6 +38,14 @@ const routes: Routes = [
     path: 'tests/:testId/report/:attemptId',
     component: TestReportDetailComponent,
     canActivate: [canActivateMain]
+  },
+  {
+    path: 'question',
+    component: QuestionCarouselComponent
+  },
+  {
+    path: 'interview',
+    component: InterviewInviteComponent
   },
   {
     path: '',

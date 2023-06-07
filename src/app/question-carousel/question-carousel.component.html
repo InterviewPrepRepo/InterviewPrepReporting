@@ -1,0 +1,21 @@
+<div class="row carousel">
+    <div class="col-8">
+        <ng-container *ngFor="let question of sampleQuestions; let i = index">
+            <c-progress class="mb-3" *ngIf="i === currentSlide">
+                <c-progress-bar [animated]="true" [value]="((i+1)/sampleQuestions.length)*100" [color]="warning"
+                    [variant]="striped"></c-progress-bar>
+            </c-progress>
+            <app-question-detail [question]="question" *ngIf="i === currentSlide"></app-question-detail>
+        </ng-container>
+    </div>
+
+    <!-- controls -->
+    <div class="col control prev">
+        <button class="btn btn-outline-revature-primary" (click)="onPreviousClick()">
+            < </button>
+    </div>
+
+    <div class="col control next">
+        <button class="btn btn-outline-revature-primary" (click)="onNextClick()"> > </button>
+    </div>
+</div>
