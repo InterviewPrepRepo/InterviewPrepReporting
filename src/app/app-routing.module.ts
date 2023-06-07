@@ -7,6 +7,7 @@ import { TestReportDetailComponent } from './test-report-detail/test-report-deta
 import { AuthService } from './services/auth-service/auth.service';
 import { QuestionCarouselComponent } from './question-carousel/question-carousel.component';
 import { InterviewInviteComponent } from './interview-invite/interview-invite.component';
+import { QuizListComponent } from './quiz-list/quiz-list.component';
 
 const canActivateMain: CanActivateFn =
   (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
@@ -41,7 +42,7 @@ const routes: Routes = [
   },
   {
     path: 'quiz',
-    component: QuestionCarouselComponent
+    component: QuizListComponent
   },
   {
     path: '',
@@ -51,7 +52,7 @@ const routes: Routes = [
   {
     path: '**',
     redirectTo: '/tests',
-    pathMatch: 'full' 
+    pathMatch: 'full'
   }
 ];
 
