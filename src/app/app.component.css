@@ -1,8 +1,0 @@
-.link { 
-    color: var(--bs-link-color);
-    text-decoration: underline;
-}
-.link:hover {
-    color: var(--bs-link-hover-color);
-    cursor: pointer;
-}

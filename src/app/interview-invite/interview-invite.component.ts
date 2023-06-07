@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ImochaService } from '../services/imocha-service/imocha.service';
+import { AuthService } from '../services/auth-service/auth.service';
 
 @Component({
   selector: 'app-interview-invite',
@@ -7,7 +9,20 @@ import { Component } from '@angular/core';
 })
 export class InterviewInviteComponent {
 
+  constructor(private imocha: ImochaService, private auth: AuthService) { }
+
   onInviteLinkClick() : void {
-    console.log('link clicked')
+    this.imocha.inviteCandidate(1238185, 'Minseon Song', 'minseon.song@revature.com').subscribe({
+      next: ({testInvitationId, testUrl}) => {
+        this.auth.setCurrentUser({
+          name: 'Minseon Song',
+          email: 'minseon.song@revature.com'
+        })
+        window.open(testUrl, '_self');
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    })
   }
 }

@@ -73,4 +73,9 @@ export class ImochaService {
   getQuestionsByTestAttemptId(testAttemptId : number) : Observable<{result : TestAttemptQuestion[]}> {
     return this.http.get<{result : TestAttemptQuestion[]}>(this.urlBuilder(`reports/${testAttemptId}/questions`));
   }
+
+  //Invites candidate through iMocha api. TestId, name, and email are required 
+  inviteCandidate(testId: number, name: string, email: string) : Observable<any> {
+    return this.http.post<any>(this.urlBuilder('invite'), { testId, email, name });
+  }
 }
