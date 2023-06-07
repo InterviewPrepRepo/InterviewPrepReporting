@@ -1,11 +1,13 @@
-<c-carousel [interval]="0" [dark]="true" [wrap]="false">
-    <c-carousel-inner>
-        <c-carousel-item *ngFor="let question of sampleQuestions">
-            <div class="container">
-                <app-question-detail [question]="question"></app-question-detail>
-            </div>
-        </c-carousel-item>
-    </c-carousel-inner>
-    <c-carousel-control [routerLink] caption="Previous" direction="prev"></c-carousel-control>
-    <c-carousel-control [routerLink] caption="Next" direction="next"></c-carousel-control>
-</c-carousel>
+<div class="container carousel">
+    <ng-container *ngFor="let question of sampleQuestions; let i = index">
+        <app-question-detail [question]="question" *ngIf="i === currentSlide"></app-question-detail>
+    </ng-container>
+
+    <!-- controls -->
+    <div class="controls">
+        <button class="btn btn-outline-revature-primary control prev" (click)="onPreviousClick()">
+            < </button>
+                <button class="btn btn-outline-revature-primary control next" (click)="onNextClick()"> > </button>
+    </div>
+
+</div>
