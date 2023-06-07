@@ -45,10 +45,6 @@ const routes: Routes = [
     component: QuestionCarouselComponent
   },
   {
-    path: 'interview',
-    component: InterviewInviteComponent
-  },
-  {
     path: '',
     redirectTo: '/login',
     pathMatch: 'full'
