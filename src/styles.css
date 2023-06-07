@@ -23,6 +23,15 @@ html, body {
 
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+.link { 
+    color: var(--bs-link-color);
+    text-decoration: underline;
+}
+.link:hover {
+    color: var(--bs-link-hover-color);
+    cursor: pointer;
+}
+
 .cursor-pointer {
     cursor: pointer;
 }

@@ -7,4 +7,7 @@ import { Component } from '@angular/core';
 })
 export class InterviewInviteComponent {
 
+  onInviteLinkClick() : void {
+    console.log('link clicked')
+  }
 }
