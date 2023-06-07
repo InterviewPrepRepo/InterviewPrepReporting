@@ -15,6 +15,7 @@ import { QuestionDetailComponent } from './question-detail/question-detail.compo
 import { QuestionCarouselComponent } from './question-carousel/question-carousel.component';
 import { InterviewInviteComponent } from './interview-invite/interview-invite.component';
 import { ProgressModule } from '@coreui/angular';
+import { QuizListComponent } from './quiz-list/quiz-list.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ProgressModule } from '@coreui/angular';
     LoadingComponent,
     QuestionDetailComponent,
     QuestionCarouselComponent,
-    InterviewInviteComponent
+    InterviewInviteComponent,
+    QuizListComponent
   ],
   imports: [
     BrowserModule,

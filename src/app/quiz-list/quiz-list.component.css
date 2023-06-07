@@ -1,0 +1,36 @@
+.quiz-card-deck{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content:flex-start;
+    align-items: center;
+    flex-direction: row;
+}
+
+.quiz-window{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 5%;
+}
+.quiz-card{
+    margin: 2% 2% 2% 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 25%;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.quiz-card-title{
+    display: flex;
+    justify-content: center;
+}
+
+.quiz-card-img-top{
+    max-width:50%;
+    align-self: center;
+    padding-top: 5%;
+}
