@@ -9,19 +9,15 @@
 
 .quiz-window{
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     flex-wrap: wrap;
     padding: 5%;
 }
 .quiz-card{
     margin: 2% 2% 2% 2%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     max-width: 25%;
-    flex-wrap: wrap;
-    flex-direction: column;
+   
 }
 
 .quiz-card-title{
@@ -34,3 +30,16 @@
     align-self: center;
     padding-top: 5%;
 }
+
+.quiz-card-body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.btn-font-light{
+    color: var(--revature-white);
+}
+

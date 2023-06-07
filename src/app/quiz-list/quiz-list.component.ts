@@ -14,7 +14,6 @@ export class QuizListComponent {
   onTakeQuiz(index: number) {
     if (index !== -1) {
       this.chosenQuiz = this.availableQuizzes[index];
-      this.availableQuizzes.splice(index, 1);
       this.cdr.detectChanges();
     }
   }
