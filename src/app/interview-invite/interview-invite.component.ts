@@ -18,7 +18,7 @@ export class InterviewInviteComponent {
           name: 'Minseon Song',
           email: 'minseon.song@revature.com'
         })
-        window.open(testUrl, '_self');
+        window.open(testUrl, '_blank');
       },
       error: (err) => {
         console.error(err);
