@@ -5,5 +5,6 @@ export default interface TestInvitation {
     email : string,
     teststatus: string,
     score? : number,
-    average?: number
+    average?: number,
+    totalTestPoints: number
 }

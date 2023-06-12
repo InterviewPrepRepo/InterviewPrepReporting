@@ -82,9 +82,9 @@ export class TestReportListComponent implements OnInit{
       for(let attempt of attemptArr) {
         //If it exists (which means iMocha has processed it) and the score isn't -1 (which means interview bot has processed it), then calculate the score by taking the cumulative total and dividing them by the number of questions
         if(responseMap[attempt.testInvitationId] && responseMap[attempt.testInvitationId].score !== -1) {
-          const scoreSum = responseMap[attempt.testInvitationId].score ?? 0
-          const numQuestion = this.test ? this.test.questions : 1;
-
+          const currentTestInvitation = responseMap[attempt.testInvitationId];
+          const scoreSum = currentTestInvitation.score ?? 0
+          const numQuestion : number = currentTestInvitation.totalTestPoints / 100
           //this nonsense is because we are trying to calculate average, and then to display it in 4 significant digit then assign the value back to number type property.
           //toPrecision gets us the significant digits, but it returns string to it needs to be converted back to number using parseFloat function
           attempt.score = parseFloat((scoreSum / numQuestion)?.toPrecision(4));
