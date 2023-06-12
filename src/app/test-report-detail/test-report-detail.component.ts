@@ -23,6 +23,7 @@ export class TestReportDetailComponent implements OnInit {
 
       this.imocha.getQuestionsByTestAttemptId(this.testAttemptId).subscribe((res) => {
         this.questions = res.result;
+        console.log('all actual questions', this.questions)
 
         if(this.questions && this.questions.length > 0) {
           const firstAnsweredQ = this.questions.findIndex(q => q.questionStatus === 'Answered')
