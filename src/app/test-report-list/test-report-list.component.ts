@@ -10,13 +10,14 @@ import VideoTest from '../models/videoTest';
   templateUrl: './test-report-list.component.html',
   styleUrls: ['./test-report-list.component.css']
 })
-export class TestReportListComponent implements OnInit{
+export class TestReportListComponent implements OnInit {
   test: VideoTest | undefined = undefined;
-  testId : number = 0;
-  testAttempts : TestInvitation[] = [];
-  loading : boolean = true;
+  testId: number = 0;
+  testAttempts: TestInvitation[] = [];
+  loading: boolean = true;
+  testAttemptees: Map<string, string> = new Map<string, string>;
 
-  constructor(public imocha : ImochaService, private activeRoute : ActivatedRoute) { }
+  constructor(public imocha: ImochaService, private activeRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
 
@@ -26,9 +27,9 @@ export class TestReportListComponent implements OnInit{
       //grab test detail from imocha
       this.imocha.getTestDetailByTestId(this.testId).subscribe((res) => {
         this.test = res;
-      
+
         //we don't have cached data
-        if(Object.keys(this.imocha.organizedTestAttempts).length === 0) {
+        if (Object.keys(this.imocha.organizedTestAttempts).length === 0) {
           this.imocha.getTestAttempts().subscribe({
 
             next: (res) => {
@@ -48,7 +49,7 @@ export class TestReportListComponent implements OnInit{
         else {
           //there is cached data
           this.testAttempts = this.imocha.organizedTestAttempts[this.testId];
-          
+
           //gonna call our backend one more time for each individual test attempts info so we can display the score
           this.getIndividualAttempts(this.testAttempts);
         }
@@ -57,31 +58,33 @@ export class TestReportListComponent implements OnInit{
   }
 
   //We need to individually get each attempt data because that's how we get the total score (for now...) (there is no total score, our backend has to manually calculate it from questions)
-  private getIndividualAttempts(attemptArr: TestInvitation[]) : void{
+  private getIndividualAttempts(attemptArr: TestInvitation[]): void {
     //if there is no attempt associated with this test, then do nothing
-    if(!attemptArr || attemptArr.length === 0) {
+    if (!attemptArr || attemptArr.length === 0) {
       this.loading = false;
       return;
     }
     //assemble the call array for each test attempt
-    let callArr : Observable<any>[] = [];
-    attemptArr.forEach((attempt : TestInvitation) => {
+    let callArr: Observable<any>[] = [];
+    attemptArr.forEach((attempt: TestInvitation) => {
       callArr.push(this.imocha.getTestAttemptByTestAttemptId(attempt.testInvitationId));
     });
 
     //Get the data from backend
     forkJoin<TestInvitation[]>(callArr).subscribe((responseArr) => {
-      let responseMap : Record<number, TestInvitation> = {};
-      
+      let responseMap: Record<number, TestInvitation> = {};
+
       //we are going to create a map for easy look up, because we are going to take a score from these and add to another one that's sharing the same testAttempt Id
-      for(let response of responseArr) {
-          responseMap[response.testInvitationId] = response;
+      for (let response of responseArr) {
+        responseMap[response.testInvitationId] = response;
       }
 
       //Loop through the attempt array for this particular test, and find the score from the corresponding responseMap object
-      for(let attempt of attemptArr) {
+      for (let attempt of attemptArr) {
+        // keep distinct names and emails
+        if (!this.testAttemptees.has(attempt.email)) this.testAttemptees.set(attempt.email, attempt.name);
         //If it exists (which means iMocha has processed it) and the score isn't -1 (which means interview bot has processed it), then calculate the score by taking the cumulative total and dividing them by the number of questions
-        if(responseMap[attempt.testInvitationId] && responseMap[attempt.testInvitationId].score !== -1) {
+        if (responseMap[attempt.testInvitationId] && responseMap[attempt.testInvitationId].score !== -1) {
           const scoreSum = responseMap[attempt.testInvitationId].score ?? 0
           const numQuestion = this.test ? this.test.questions : 1;
 

@@ -6,7 +6,6 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
 import { TestListComponent } from './test-list/test-list.component';
 import { TestReportListComponent } from './test-report-list/test-report-list.component';
-import { TestReportDetailComponent } from './test-report-detail/test-report-detail.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -35,7 +34,6 @@ import { NoReportComponent } from './no-report/no-report.component';
     LoginComponent,
     TestListComponent,
     TestReportListComponent,
-    TestReportDetailComponent,
     LoadingComponent,
     QuestionDetailComponent,
     QuestionCarouselComponent,

@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ImochaService } from 'src/app/services/imocha-service/imocha.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import User from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import TestInvitation from 'src/app/models/testInvitation';
 import { NotifyService } from 'src/app/services/notify-service/notify.service';
@@ -11,7 +10,7 @@ import ChartData from 'src/app/models/chartData';
 @Component({
   selector: 'app-test-attempt-reports',
   templateUrl: './test-attempt-reports.component.html',
-  styleUrls: ['./test-attempt-reports.component.scss']
+  styleUrls: ['./test-attempt-reports.component.css']
 })
 export class TestAttemptReportsComponent {
 
