@@ -1,6 +1,6 @@
 <div class="container">
     <app-loading *ngIf="loading; else testReportData"></app-loading>
-    
+
     <ng-template #testReportData>
         <h2>{{test?.testName}}</h2>
         <table class="table table-hover mt-3">
@@ -15,7 +15,9 @@
                     <td>{{attempt.name}}</td>
                     <td>{{attempt.email}}</td>
                     <td>{{attempt.score}}</td>
-                    <td><button class="btn btn-revature-primary" [routerLink]="'report/' + attempt.testInvitationId"><img class="table-icon" src="assets/arrow-right-to-bracket.svg" alt="" srcset=""></button></td>
+                    <td><button class="btn btn-revature-primary" [routerLink]="'report/' + attempt.email"><img
+                                class="table-icon" src="assets/arrow-right-to-bracket.svg" alt="" srcset=""></button>
+                    </td>
                 </tr>
             </tbody>
         </table>

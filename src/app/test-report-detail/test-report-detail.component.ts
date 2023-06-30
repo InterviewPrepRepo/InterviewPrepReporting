@@ -9,22 +9,22 @@ import TestAttemptQuestion from '../models/testAttemptQuestion';
   styleUrls: ['./test-report-detail.component.css']
 })
 export class TestReportDetailComponent implements OnInit {
-  testAttemptId : number = 0;
-  currentQuestion : number = 1;
-  videoUrl : string = "";
-  questions : TestAttemptQuestion[] = [];
+  testAttemptId: number = 0;
+  currentQuestion: number = 1;
+  videoUrl: string = "";
+  questions: TestAttemptQuestion[] = [];
   loading: boolean = true;
 
-  constructor(private activeRoute : ActivatedRoute, private imocha: ImochaService) { }
+  constructor(private activeRoute: ActivatedRoute, private imocha: ImochaService) { }
 
   ngOnInit(): void {
     this.activeRoute.params.subscribe((params) => {
       this.testAttemptId = params['attemptId'];
 
       this.imocha.getQuestionsByTestAttemptId(this.testAttemptId).subscribe((res) => {
-        this.questions = res.result;
+        this.questions = res.questions;
 
-        if(this.questions && this.questions.length > 0) {
+        if (this.questions && this.questions.length > 0) {
           const firstAnsweredQ = this.questions.findIndex(q => q.questionStatus === 'Answered')
           this.switchVideo(firstAnsweredQ);
         }
@@ -34,10 +34,10 @@ export class TestReportDetailComponent implements OnInit {
     });
   }
 
-  switchVideo(index : number) {
-    if(this.questions[index] && this.questions[index].questionStatus === 'Answered') {
+  switchVideo(index: number) {
+    if (this.questions[index] && this.questions[index].questionStatus === 'Answered') {
       this.currentQuestion = index + 1;
       this.videoUrl = this.questions[index].candidateAnswer.videoAnswer.videoUrl;
-    } 
+    }
   }
 }
