@@ -14,3 +14,21 @@
 .cursor-notallowed {
     cursor: not-allowed
 }
+
+.card-answer-body {
+    max-height: 150pt;
+    overflow-y: scroll;
+}
+
+.header {
+    font-weight: bolder;
+    font-size: large;
+}
+
+.vid-player {
+    width: 100%;
+}
+
+pre {
+    white-space: pre-wrap;
+}
