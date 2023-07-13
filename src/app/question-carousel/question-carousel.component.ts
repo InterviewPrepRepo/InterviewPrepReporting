@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Question } from '../models/question';
 import { QuestionsService } from '../services/questions-service/questions.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-question-carousel',
