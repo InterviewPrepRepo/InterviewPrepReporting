@@ -13,7 +13,7 @@ export class ReportAnswerSectionComponent implements OnInit {
   videoUrl: string = "";
 
   constructor() { }
-
+  
   ngOnInit(): void {
     this.switchVideo();
   }
