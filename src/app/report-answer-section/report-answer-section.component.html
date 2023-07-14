@@ -45,7 +45,7 @@
         </div> <!-- end of ngFor q in questions-->
     </div> <!-- end of col-md-9 -->
     <div class="col-md-6 col-sm-6 answer-detail">
-        <div [ngSwitch]="questions[currentQuestion - 1].questionTypeId">
+        <div [ngSwitch]="questions[currentQuestion - 1]?.questionTypeId">
             <!-- Video Interview -->
             <div *ngSwitchCase="4">
                 <video class="vid-player" [src]="videoUrl" controls type="video/webm"></video>
@@ -55,7 +55,7 @@
             <div *ngSwitchCase="5">
 
                 <h6 class="header">Your Answer:</h6>
-                <pre><code  [highlight]="questions[currentQuestion - 1].candidateAnswer.codingQuestionData.candidateCode"></code></pre>
+                <pre><code  [highlight]="questions[currentQuestion - 1]?.candidateAnswer?.codingQuestionData?.candidateCode ?? ''"></code></pre>
             </div>
 
             <!-- Multiple Choice Question -->
