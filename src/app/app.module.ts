@@ -26,6 +26,7 @@ import { ReportsComponent } from './reports/reports.component';
 import { AttemptProcessingComponent } from './attempt-processing/attempt-processing.component';
 import { TestAttemptReportsComponent } from './test-attempt-reports/test-attempt-reports.component';
 import { NoReportComponent } from './no-report/no-report.component';
+import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-google-analytics';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,7 @@ import { NoReportComponent } from './no-report/no-report.component';
     ReportsComponent,
     AttemptProcessingComponent,
     TestAttemptReportsComponent,
-    NoReportComponent
+    NoReportComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,7 +64,8 @@ import { NoReportComponent } from './no-report/no-report.component';
     NavModule,
     TabsModule,
     HighlightModule,
-
+    NgxGoogleAnalyticsModule.forRoot('G-NQZ13G6NKT'),
+    NgxGoogleAnalyticsRouterModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
