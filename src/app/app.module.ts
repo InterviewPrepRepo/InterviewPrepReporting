@@ -47,7 +47,7 @@ import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-go
     ReportsComponent,
     AttemptProcessingComponent,
     TestAttemptReportsComponent,
-    NoReportComponent
+    NoReportComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,7 +65,7 @@ import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-go
     TabsModule,
     HighlightModule,
     NgxGoogleAnalyticsModule.forRoot('G-NQZ13G6NKT'),
-    NgxGoogleAnalyticsRouterModule
+    NgxGoogleAnalyticsRouterModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
