@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import TestAttemptQuestion from 'src/app/models/testAttemptQuestion';
+import { ScoreService } from '../services/score-service/score.service';
 @Component({
   selector: 'app-report-answer-section',
   templateUrl: './report-answer-section.component.html',
@@ -12,7 +13,7 @@ export class ReportAnswerSectionComponent implements OnInit {
   currentQuestion: number = 1;
   videoUrl: string = "";
 
-  constructor() { }
+  constructor(private scoreService: ScoreService) { }
   
   ngOnInit(): void {
     this.switchVideo();
@@ -28,6 +29,20 @@ export class ReportAnswerSectionComponent implements OnInit {
     }
     else {
       this.videoUrl = "";
+    }
+  }
+
+  updateManualScore(question: TestAttemptQuestion, manualScore: any) {
+    console.log('updating manual score', question, manualScore);
+    if(manualScore.valid) {
+      this.scoreService.updateManualScore(question).subscribe({
+        next: (res) => {
+          console.log('score update worked!', res);
+        },
+        error: (err) => {
+          console.error(err);
+        }
+      });
     }
   }
   scoreStatus(status: string, score: number): string {

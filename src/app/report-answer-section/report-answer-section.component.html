@@ -5,7 +5,21 @@
                 [ngClass]="{'card-active' : i === currentQuestion - 1, 'look-disabled cursor-notallowed': q.questionStatus !== 'Answered', 'cursor-pointer card-hover': q.questionStatus === 'Answered'}">
                 <div class="card-body">
                     <h5>Q{{i + 1}}. <span [innerHTML]="q.question"></span></h5>
-                    <p>{{q.questionStatus === 'Answered' ? scoreStatus(q.questionStatus, q.score) : "Not Answered"}}</p>
+                    <!-- Displaying the score if answered -->
+                    <div *ngIf="q.questionStatus === 'Answered'; else notAnswered">
+                        <div>
+                            Score: <input type="number" (focusout)="updateManualScore(q, manualScore)" #manualScore="ngModel" [(ngModel)]="q.manualScore" min="0" max="100"> / 100
+                            <div class="alert alert-danger" *ngIf="manualScore.invalid && (manualScore.dirty || manualScore.touched)">
+                                <span *ngIf="manualScore.errors?.['min'] || manualScore.errors?.['max']">
+                                    The score must be between 0 and 100
+                                </span>
+                            </div>
+                        </div>
+                        AI Score: {{q.score}} / 100
+                    </div>
+                    <ng-template #notAnswered>
+                        <p>Not Answered</p>
+                    </ng-template>
 
                     <div *ngIf="i === currentQuestion - 1">
                         <div class="card-answer-body" [ngSwitch]="q.questionTypeId">

@@ -91,8 +91,17 @@ export class ImochaService {
         let totalSection = 0;
 
         questions.map((question) => {
+
+          
           // don't include negatives count it as does not exist
           if (question.score >= 0) {
+
+            //replacing scores with manual scores
+            if(question.manualScore === -1){
+              question.manualScore = question.score;
+              // question.score = question.manualScore;
+            }
+
             //calculating score
             if (!question.candidateAnswer.videoAnswer) {
               //this is imocha calculated coding questions
