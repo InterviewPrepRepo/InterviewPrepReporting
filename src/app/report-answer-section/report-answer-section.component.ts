@@ -38,6 +38,8 @@ export class ReportAnswerSectionComponent implements OnInit {
       this.scoreService.updateManualScore(question).subscribe({
         next: (res) => {
           console.log('score update worked!', res);
+          question.updateSuccess = true;
+          console.log(manualScore);
         },
         error: (err) => {
           console.error(err);
@@ -45,6 +47,7 @@ export class ReportAnswerSectionComponent implements OnInit {
       });
     }
   }
+  
   scoreStatus(status: string, score: number): string {
     if (score < 0) return "No Score";
     return "Score : " + score + "/100";
