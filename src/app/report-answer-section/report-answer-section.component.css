@@ -32,3 +32,26 @@
 pre {
     white-space: pre-wrap;
 }
+
+.score-input {
+    width: inherit;
+    display: inline;
+    appearance: textfield;
+    -moz-appearance: textfield;
+    -webkit-appearance: textfield;
+}
+
+.score-input::-webkit-inner-spin-button, 
+.score-input::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+}
+
+.score-input.success {
+    box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.26);
+    border-color: rgb(25, 135, 84);
+    border-width: 1pt;
+}
+
+.update-success {
+    height: 20px;
+}
