@@ -37,9 +37,8 @@ export class ReportAnswerSectionComponent implements OnInit {
     if(manualScore.valid) {
       this.scoreService.updateManualScore(question).subscribe({
         next: (res) => {
-          console.log('score update worked!', res);
           question.updateSuccess = true;
-          console.log(manualScore);
+          question.manualScoreId = res[0].gradedQuestionId;
         },
         error: (err) => {
           console.error(err);

@@ -15,7 +15,7 @@ export class ScoreService {
   constructor(private http: HttpClient) { }
 
 
-  updateManualScore(q: TestAttemptQuestion): Observable<[{gradeQuestionId :number, questionId: number, testAttempt: number, grade: number}]>{
-    return this.http.put<[{gradeQuestionId :number, questionId: number, testAttempt: number, grade: number}]>(this.baseurl, [{"gradedQuestionId": q.manualScoreId, "questionId": q.questionId, "testAttempt": q.testInvitationId, "grade": q.manualScore}]);
+  updateManualScore(q: TestAttemptQuestion): Observable<[{gradedQuestionId :number, questionId: number, testAttempt: number, grade: number}]>{
+    return this.http.put<[{gradedQuestionId :number, questionId: number, testAttempt: number, grade: number}]>(this.baseurl, [{"gradedQuestionId": q.manualScoreId, "questionId": q.questionId, "testAttempt": q.testInvitationId, "grade": q.manualScore}]);
   }
 }
