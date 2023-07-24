@@ -32,3 +32,16 @@
 pre {
     white-space: pre-wrap;
 }
+
+.score-input {
+    width: inherit;
+    display: inline;
+    appearance: textfield;
+    -moz-appearance: textfield;
+    -webkit-appearance: textfield;
+}
+
+.score-input::-webkit-inner-spin-button, 
+.score-input::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+}
