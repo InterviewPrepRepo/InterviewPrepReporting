@@ -55,3 +55,10 @@ pre {
 .update-success {
     height: 20px;
 }
+
+.score-box {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
