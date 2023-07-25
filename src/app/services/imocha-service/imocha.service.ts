@@ -88,38 +88,36 @@ export class ImochaService {
         //and also calculate total score while we're at it
         const sectionMap: Record<string, number[]> = {};
         let scoreSum = 0;
-        let totalSection = 0;
-
+        let possiblePoints = 0;
         questions.map((question) => {
 
           
-          // don't include negatives count it as does not exist
-          if (question.score >= 0) {
-
+          // don't include negatives count it as does not exist or if the question hasn't been graded yet
+          if (question.score >= 0 || question.manualScore > -1) {
+            
             //replacing scores with manual scores
             if(question.manualScore === -1){
               question.manualScore = question.score;
-              // question.score = question.manualScore;
             }
 
             //calculating score
             if (!question.candidateAnswer.videoAnswer) {
               //this is imocha calculated coding questions
-              question.score = (question.score / question.points) * 100
+              question.manualScore = (question.manualScore / question.points) * 100
             }
 
             if (question.sectionName in sectionMap) {
-              sectionMap[question.sectionName].push(question.score);
+              sectionMap[question.sectionName].push(question.manualScore);
             }
             else {
-              sectionMap[question.sectionName] = [question.score];
+              sectionMap[question.sectionName] = [question.manualScore];
             }
-            scoreSum += question.score;
-            totalSection++;
+            scoreSum += question.manualScore;
+            possiblePoints += question.points;
           }
         })
 
-        testScore = scoreSum / totalSection;
+        testScore = (scoreSum / possiblePoints) * 100;
 
         //Calculate average score for each section name
         Object.keys(sectionMap).map((key) => {
