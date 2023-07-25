@@ -37,16 +37,22 @@ export class ReportAnswerSectionComponent implements OnInit {
 
   updateManualScore(question: TestAttemptQuestion, manualScore: NgModel) {
     if(manualScore.valid) {
-      this.scoreService.updateManualScore(question).subscribe({
-        next: (res) => {
-          question.updateSuccess = true;
-          question.manualScoreId = res[0].gradedQuestionId;
-          this.notify.notifymanualGradeUpdate(question.testInvitationId);
-        },
-        error: (err) => {
-          console.error(err);
-        }
-      });
+      console.log(manualScore, question);
+      if(manualScore.model === null) {
+        manualScore.control.setErrors({'null': 'value is null'});
+      }
+      else {
+        this.scoreService.updateManualScore(question).subscribe({
+          next: (res) => {
+            question.updateSuccess = true;
+            question.manualScoreId = res[0].gradedQuestionId;
+            this.notify.notifymanualGradeUpdate(question.testInvitationId);
+          },
+          error: (err) => {
+            console.error(err);
+          }
+        });
+      }
     }
   }
   

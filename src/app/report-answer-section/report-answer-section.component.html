@@ -12,6 +12,9 @@
                             <span *ngIf="manualScore.errors?.['min'] || manualScore.errors?.['max']">
                                 The score must be between 0 and 100
                             </span>
+                            <span *ngIf="manualScore.errors?.['null']">
+                                The score must be a valid number
+                            </span>
                         </div>
                         <img *ngIf="q.updateSuccess" class="update-success" src="assets/cutecheck.svg"/>
                     </div>
