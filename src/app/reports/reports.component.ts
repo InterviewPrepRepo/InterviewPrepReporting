@@ -15,7 +15,7 @@ export class ReportsComponent {
     keys: [],
     values: []
   };
-  @Input() allAttemptsScore: { name: string, data: number[] }[] = [];
+  @Input() allAttemptsScore: { name: string, data: number[], testInvitationId: number }[] = [];
 
   currentQuestion: number = 1;
   videoUrl: string = "";
