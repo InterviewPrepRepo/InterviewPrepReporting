@@ -17,13 +17,14 @@ export class NotifyService {
     this.tabSwitch.next(tabIndex);
   }
 
-  //Notification for score update event
+  //Notification for manual score update event
   private manualGradeUpdate = new Subject<number>();
   public manualGradeUpdateObservable$ = this.manualGradeUpdate.asObservable();
   public notifymanualGradeUpdate(testInvitationId: number) {
     this.manualGradeUpdate.next(testInvitationId);
   }
 
+  //notification when the total chart score has been updated
   private scoreUpdate = new Subject<{testInvitationId: number, scoreData: ChartData, testScore : number}>();
   public scoreUpdateObservable$ = this.scoreUpdate.asObservable();
   public notifyscoreUpdate(updatedScores : {testInvitationId: number, scoreData: ChartData, testScore : number}) {

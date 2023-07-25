@@ -16,7 +16,7 @@ export class ReportAnswerSectionComponent implements OnInit {
   currentQuestion: number = 1;
   videoUrl: string = "";
 
-  constructor(private scoreService: ScoreService, private notify: NotifyService, private imocha: ImochaService) { }
+  constructor(private scoreService: ScoreService, private notify: NotifyService) { }
   
   ngOnInit(): void {
     this.switchVideo();
@@ -37,7 +37,6 @@ export class ReportAnswerSectionComponent implements OnInit {
 
   updateManualScore(question: TestAttemptQuestion, manualScore: NgModel) {
     if(manualScore.valid) {
-      console.log(manualScore, question);
       if(manualScore.model === null) {
         manualScore.control.setErrors({'null': 'value is null'});
       }
