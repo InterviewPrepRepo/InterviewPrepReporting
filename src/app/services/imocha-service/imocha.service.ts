@@ -71,70 +71,74 @@ export class ImochaService {
     return this.http.get<TestInvitation>(this.urlBuilder(`reports/${testAttemptId}`))
   }
 
+  calculateScoreData(testInvitationId: number, questions: TestAttemptQuestion[]) : {testInvitationId: number, testScore: number, scoreData: ChartData} {
+    let testScore;
+    let scoreData: ChartData = {
+      //set keys array for the chart to consume
+      keys: [],
+      values: []
+    };
+
+    //create a map for each section with the score candidate got for the questions in the section
+    //and also calculate total score while we're at it
+    const sectionMap: Record<string, number[]> = {};
+    let scoreSum = 0;
+    let possiblePoints = 0;
+    questions.map((question) => {
+
+      
+      // don't include negatives count it as does not exist or if the question hasn't been graded yet
+      if (question.score >= 0 || question.manualScore > -1) {
+        
+        //replacing scores with manual scores
+        if(question.manualScore === -1){
+          question.manualScore = question.score;
+        }
+
+        //calculating score
+        if (!question.candidateAnswer.videoAnswer) {
+          //this is for imocha calculated questions
+          question.manualScore = (question.manualScore / question.points) * 100
+        }
+
+        if (question.sectionName in sectionMap) {
+          sectionMap[question.sectionName].push(question.manualScore);
+        }
+        else {
+          sectionMap[question.sectionName] = [question.manualScore];
+        }
+        scoreSum += question.manualScore;
+        possiblePoints += question.points;
+      }
+    })
+
+    testScore = (scoreSum / possiblePoints) * 100;
+
+    //Calculate average score for each section name
+    Object.keys(sectionMap).map((key) => {
+      let average = sectionMap[key].reduce((a, b) => a + b, 0) / sectionMap[key].length;
+      //only include sections with positive average
+      scoreData.keys.push(key);
+      scoreData.values.push(this.util.truncateToSignificantDigit(average));
+    });
+    console.log('imocha service calculatingg score data', testInvitationId, testScore, scoreData);
+    return { testInvitationId, testScore, scoreData };
+  }
+
   //gets each question detail and score for one test attempt
   getQuestionsByTestAttemptId(testAttemptId: number): Observable<{ testInvitationId: number, questions: TestAttemptQuestion[], testScore: number, scoreData: ChartData }> {
     const subject = new Subject<{ testInvitationId: number, questions: TestAttemptQuestion[], testScore: number, scoreData: ChartData }>();
     this.http.get<{ result: TestAttemptQuestion[] }>(this.urlBuilder(`reports/${testAttemptId}/questions`)).subscribe({
       next: (res) => {
         const questions = res.result;
-        let testScore;
-        let scoreData: ChartData = {
-          //set keys array for the chart to consume
-          keys: [],
-          values: []
-        };
-
-        //create a map for each section with the score candidate got for the questions in the section
-        //and also calculate total score while we're at it
-        const sectionMap: Record<string, number[]> = {};
-        let scoreSum = 0;
-        let totalSection = 0;
-
-        questions.map((question) => {
-
-          
-          // don't include negatives count it as does not exist
-          if (question.score >= 0) {
-
-            //replacing scores with manual scores
-            if(question.manualScore === -1){
-              question.manualScore = question.score;
-              // question.score = question.manualScore;
-            }
-
-            //calculating score
-            if (!question.candidateAnswer.videoAnswer) {
-              //this is imocha calculated coding questions
-              question.score = (question.score / question.points) * 100
-            }
-
-            if (question.sectionName in sectionMap) {
-              sectionMap[question.sectionName].push(question.score);
-            }
-            else {
-              sectionMap[question.sectionName] = [question.score];
-            }
-            scoreSum += question.score;
-            totalSection++;
-          }
-        })
-
-        testScore = scoreSum / totalSection;
-
-        //Calculate average score for each section name
-        Object.keys(sectionMap).map((key) => {
-          let average = sectionMap[key].reduce((a, b) => a + b, 0) / sectionMap[key].length;
-          //only include sections with positive average
-          scoreData.keys.push(key);
-          scoreData.values.push(this.util.truncateToSignificantDigit(average));
-        });
+        const {testScore, scoreData} = this.calculateScoreData(testAttemptId, questions);
 
         subject.next({ testInvitationId: testAttemptId, questions, testScore, scoreData })
-        subject.complete()
+        subject.complete();
       },
       error: (err) => {
         subject.error(err);
-        subject.complete()
+        subject.complete();
       }
     });
 
