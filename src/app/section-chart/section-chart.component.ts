@@ -57,7 +57,6 @@ export class SectionChartComponent implements OnInit {
   }
   ngOnInit(): void {
     this.chartOptions.series = this.allAttemptsScore;
-    console.log(this.allAttemptsScore);
     this.chartOptions.xaxis.categories = this.sectionNames;
 
     this.notify.tabSwitchObservable$.subscribe((tabIndex: number) => {

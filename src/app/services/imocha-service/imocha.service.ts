@@ -121,7 +121,6 @@ export class ImochaService {
       scoreData.keys.push(key);
       scoreData.values.push(this.util.truncateToSignificantDigit(average));
     });
-    console.log('imocha service calculatingg score data', testInvitationId, testScore, scoreData);
     return { testInvitationId, testScore, scoreData };
   }
 
