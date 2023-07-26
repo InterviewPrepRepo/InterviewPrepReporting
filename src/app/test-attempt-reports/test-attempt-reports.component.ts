@@ -20,7 +20,7 @@ export class TestAttemptReportsComponent {
   attempts: TestInvitation[] = [];
   attemptDetails: Record<number, { questions: TestAttemptQuestion[], testScore: number, scoreData: ChartData }> = {};
   loading: boolean = false;
-  allAttemptSectionScore: { name: string, data: number[] }[] = [];
+  allAttemptSectionScore: { name: string, testInvitationId: number, data: number[] }[] = [];
   testId = 0;
 
   ngOnInit(): void {
@@ -47,6 +47,7 @@ export class TestAttemptReportsComponent {
               }
               this.allAttemptSectionScore.push({
                 name: `Attempt ${idx + 1}`,
+                testInvitationId: singleResult.testInvitationId,
                 data: singleResult.scoreData.values
               })
             })
@@ -60,6 +61,14 @@ export class TestAttemptReportsComponent {
         }
       })
     })
+
+    this.notify.manualGradeUpdateObservable$.subscribe((testInvitationId: number) => {
+      const updatedScores = this.imocha.calculateScoreData(testInvitationId, this.attemptDetails[testInvitationId].questions);
+      this.attemptDetails[testInvitationId].scoreData = updatedScores.scoreData;
+      this.attemptDetails[testInvitationId].testScore = updatedScores.testScore;
+
+      this.notify.notifyscoreUpdate(updatedScores);
+    });
   }
 
   activeTab(i: number): void {

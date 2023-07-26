@@ -31,6 +31,7 @@ export type ChartOptions = {
 })
 export class SectionBarChartComponent implements OnInit {
   @Input() sectionNames: string[] = [];
+  @Input() testInvitationId: number = 0;
   @Input() sectionAverages: number[] = [];
   @ViewChild('apexBarChart') chart!: ChartComponent;
 
@@ -105,6 +106,13 @@ export class SectionBarChartComponent implements OnInit {
 
     this.notify.tabSwitchObservable$.subscribe((tabIdx: number) => {
       this.chart.render();
+    })
+    this.notify.scoreUpdateObservable$.subscribe(({testInvitationId, scoreData, testScore}) => {
+      if(testInvitationId === this.testInvitationId) {
+        this.chart.updateSeries([{
+          data: scoreData.values
+        }])
+      }
     })
   }
 }

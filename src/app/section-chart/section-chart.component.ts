@@ -25,7 +25,7 @@ export type ChartOptions = {
 })
 export class SectionChartComponent implements OnInit {
   @Input() sectionNames: string[] = [];
-  @Input() allAttemptsScore: { name: string, data: number[] }[] = [];
+  @Input() allAttemptsScore: { name: string, data: number[], testInvitationId : number }[] = [];
 
   @ViewChild('apexRadarChart') chart!: ChartComponent;
 
@@ -61,6 +61,14 @@ export class SectionChartComponent implements OnInit {
 
     this.notify.tabSwitchObservable$.subscribe((tabIndex: number) => {
       this.chart.render();
+    })
+    this.notify.scoreUpdateObservable$.subscribe(({testInvitationId, scoreData, testScore}) => {
+      let foundGraphData= this.allAttemptsScore.find(score => score.testInvitationId === testInvitationId)
+      if(foundGraphData) {
+        foundGraphData.data = scoreData.values;
+      }
+
+      this.chart.updateSeries(this.allAttemptsScore)
     })
   }
 
