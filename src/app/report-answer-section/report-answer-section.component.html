@@ -8,10 +8,10 @@
                     <!-- Displaying the score if answered -->
                     <div class="score-box">
                         <div>
-                            Score: <input class="form-control score-input" [ngClass]="{success: q.updateSuccess}" type="number" (focusout)="updateManualScore(q, manualScore)" (input)="q.updateSuccess = false" #manualScore="ngModel" [(ngModel)]="q.manualScore" min="0" max="100"> / 100
+                            Score: <input class="form-control score-input" [ngClass]="{success: q.updateSuccess}" type="number" (focusout)="updateManualScore(q, manualScore)" (input)="q.updateSuccess = false" #manualScore="ngModel" [(ngModel)]="q.manualScore" min="0" [max]="q.points"> / {{q.points}}
                             <div class="alert alert-danger" *ngIf="manualScore.invalid && (manualScore.dirty || manualScore.touched)">
                                 <span *ngIf="manualScore.errors?.['min'] || manualScore.errors?.['max']">
-                                    The score must be between 0 and 100
+                                    The score must be between 0 and {{q.points}}
                                 </span>
                                 <span *ngIf="manualScore.errors?.['null']">
                                     The score must be a valid number
