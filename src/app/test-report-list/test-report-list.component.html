@@ -7,14 +7,12 @@
             <thead>
                 <th>Name</th>
                 <th>Email</th>
-                <!-- <th>Score</th> -->
                 <th>Actions</th>
             </thead>
             <tbody *ngIf="testAttempts && testAttempts.length > 0; else noReports">
                 <tr *ngFor="let attemptee of testAttemptees | keyvalue">
                     <td>{{attemptee.value}}</td>
                     <td>{{attemptee.key}}</td>
-                    <!-- <td>{{attempt.score}}</td> -->
                     <td><button class="btn btn-revature-primary" [routerLink]="'report/' + attemptee.key"><img
                                 class="table-icon" src="assets/arrow-right-to-bracket.svg" alt="" srcset=""></button>
                     </td>
