@@ -41,10 +41,13 @@ export class ReportAnswerSectionComponent implements OnInit {
         manualScore.control.setErrors({'null': 'value is null'});
       }
       else {
+        console.log('before http call', question.manualScore)
         this.scoreService.updateManualScore(question).subscribe({
           next: (res) => {
+            console.log(res, question.manualScore);
             question.updateSuccess = true;
             question.manualScoreId = res[0].gradedQuestionId;
+            console.log(question.manualScore);
             this.notify.notifymanualGradeUpdate(question.testInvitationId);
           },
           error: (err) => {
