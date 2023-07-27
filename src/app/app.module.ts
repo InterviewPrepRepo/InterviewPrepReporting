@@ -10,11 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoadingComponent } from './loading/loading.component';
-import { QuestionDetailComponent } from './question-detail/question-detail.component';
-import { QuestionCarouselComponent } from './question-carousel/question-carousel.component';
-import { InterviewInviteComponent } from './interview-invite/interview-invite.component';
 import { AccordionModule, NavModule, ProgressModule, SharedModule, TabsModule } from '@coreui/angular';
-import { QuizListComponent } from './quiz-list/quiz-list.component';
 import { ReportAnswerSectionComponent } from './report-answer-section/report-answer-section.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { IconModule } from '@coreui/icons-angular';
@@ -36,10 +32,6 @@ import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-go
     TestListComponent,
     TestReportListComponent,
     LoadingComponent,
-    QuestionDetailComponent,
-    QuestionCarouselComponent,
-    InterviewInviteComponent,
-    QuizListComponent,
     ReportAnswerSectionComponent,
     ReportResponseDetailComponent,
     SectionChartComponent,

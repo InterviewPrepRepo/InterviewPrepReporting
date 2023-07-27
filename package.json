@@ -26,6 +26,7 @@
     "@fontsource/roboto": "^5.0.3",
     "angular-web-storage": "^16.0.0",
     "bootstrap": "^5.3.0",
+    "bootstrap-table": "^1.22.1",
     "ng-apexcharts": "^1.7.6",
     "ngx-google-analytics": "^14.0.1",
     "ngx-highlightjs": "^10.0.0",

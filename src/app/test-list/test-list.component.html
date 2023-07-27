@@ -3,9 +3,9 @@
       <app-loading *ngIf="loading; else testData"></app-loading>
     
       <ng-template #testData>
-        <table class="table table-hover">
+        <table class="table table-hover" data-toggle="table">
           <thead>
-            <th>
+            <th data-sortable="true">
               Test Name
             </th>
             <th>
