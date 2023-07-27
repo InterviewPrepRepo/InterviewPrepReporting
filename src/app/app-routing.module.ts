@@ -4,7 +4,6 @@ import { LoginComponent } from './login/login.component';
 import { TestListComponent } from './test-list/test-list.component';
 import { TestReportListComponent } from './test-report-list/test-report-list.component';
 import { AuthService } from './services/auth-service/auth.service';
-import { QuizListComponent } from './quiz-list/quiz-list.component';
 import { TestAttemptReportsComponent } from './test-attempt-reports/test-attempt-reports.component';
 
 const canActivateMain: CanActivateFn =
@@ -37,10 +36,6 @@ const routes: Routes = [
     path: 'tests/:testId/report/:email',
     component: TestAttemptReportsComponent,
     canActivate: [canActivateMain]
-  },
-  {
-    path: 'quiz',
-    component: QuizListComponent
   },
   {
     path: '',
