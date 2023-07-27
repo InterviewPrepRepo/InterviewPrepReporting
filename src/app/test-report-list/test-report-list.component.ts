@@ -59,7 +59,7 @@ export class TestReportListComponent implements OnInit {
     })
   }
   private getCandidateInfo() {
-    this.testAttempts?.forEach(attempt => {
+    this.testAttempts.forEach(attempt => {
       if (!this.testAttemptees.has(attempt.email)) this.testAttemptees.set(attempt.email, attempt.name);
     });
   }
