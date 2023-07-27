@@ -86,19 +86,16 @@ export class ImochaService {
     let possiblePoints = 0;
     questions.map((question) => {
 
-      
+      //if some video question doesn't have a total possible point assigned to it, default to 100
+      if(question.points === 0) {
+        question.points = 100;
+      }
       // don't include negatives count it as does not exist or if the question hasn't been graded yet
       if (question.score >= 0 || question.manualScore > -1) {
         
         //replacing scores with manual scores
         if(question.manualScore === -1){
-          question.manualScore = question.score;
-        }
-
-        //calculating score
-        if (!question.candidateAnswer.videoAnswer) {
-          //this is for imocha calculated questions
-          question.manualScore = (question.manualScore / question.points) * 100
+          question.manualScore = (question.score / question.points) * 100;
         }
 
         if (question.sectionName in sectionMap) {
